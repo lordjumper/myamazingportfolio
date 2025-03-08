@@ -845,7 +845,6 @@ body.modal-open {
 @media (min-width: 420px) and (max-width: 440px) {
     /* Force pixel snapping and hardware acceleration */
     .navbar {
-        animation: none !important; /* Disable the animation completely */
         transform: translateZ(0); /* Force hardware acceleration */
         max-width: 100%; /* Override the max-width */
         will-change: transform; /* Hint to browser to optimize */
