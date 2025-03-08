@@ -229,9 +229,10 @@
         /* Projects section */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 30px;
         }
 
         
@@ -890,4 +891,17 @@ body.modal-open {
 /* Fix text aliasing */
 .nav-links a, .nav-right a, .logo {
     text-rendering: optimizeLegibility;
+}
+
+@media (max-width: 375px) {
+    .nav-links, .nav-right{
+        font-size: 5px;
+        gap: 5px;
+    }
+    .logo{
+        letter-spacing: 0px;
+        font-size: 10px;
+    }
+        
+
 }
