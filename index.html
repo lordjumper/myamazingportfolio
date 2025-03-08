@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mina Zaky | Developer Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://kit.fontawesome.com/bdb2c08ab2.js" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <nav class="navbar">
+            <div class="nav-links">
+                <a href="#home">home</a>
+                <a href="#about">about</a>
+            </div>
+            <div class="logo">Mina Zaky</div>
+            <div class="nav-right">
+                <a href="#projects">projects</a>
+                <a href="#resume">resume</a>
+            </div>
+        </nav>
+    </div>
+    
+    <!-- Home Section -->
+    <header id="home" class="header">
+        <div class="social-icons">
+            <a href="https://github.com/lordjumper" target="_blank"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/mina-zaky-662a841b4/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://x.com/SirMina0" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="mailto:minazaky06@gmail.com" target="_blank"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+        <p class="description">I'm just a guy that enjoy making cool stuff.</p>
+    </header>
+    
+    <!-- About Section -->
+    <section id="about" class="container">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <div>
+                <p>Hello! I'm Mina, a software/game developer with a passion to create and innvoate amazing web and game applications.</p>
+                <p>I first discovered my love for programmer when I first opened unity for the first time in 2020 to create a game. Ever since then I have expenaded into the world of web applications as well.</p>
+                <p>When I'm not coding, you'll find me enjoying some of my favorite games and tv shows. I also enjoy travelling and exploring new places when I can.</p>
+            </div>
+            <ul class="skills-list">
+                <li>JavaScript</li>
+                <li>React</li>
+                <li>Node.js</li>
+                <li>TypeScript</li>
+                <li>C#</li>
+                <li>C++</li>
+            </ul>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="container">
+        <h2>Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>Test 1</h3>
+                <p>A very cool project that I put as number 1</p>
+            </div>
+            <div class="project-card">
+                <h3>Test 2</h3>
+                <p>A very cool project that I put as number 2</p>
+            </div>
+            <div class="project-card">
+                <h3>Test 3</h3>
+                <p>A very cool project that I put as number 3</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Resume Section -->
+    <section id="resume" class="container">
+        <h2>Resume</h2>
+        <p>I'm always open to new opportunities and challenges. Whether you're looking for a developer to join your team or collaborate on a project, I'd love to connect.</p>
+        <p>Download my resume to learn more about my experience, education, and technical skills.</p>
+        <a href="#" class="resume-button">Download Resume</a>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <p>created with love</p>
+        <p>© 2025 All Rights Reserved</p>
+    </footer>
+
+    <!-- Project Pop-Ups -->
+<div id="modal-overlay" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-close"><i class="fas fa-times"></i></div>
+        <div class="modal-content">
+            <h2 id="modal-title">Project Title</h2>
+            <div id="modal-description">
+                <p>project description loads here</p>
+            </div>
+            <div class="modal-gallery" id="modal-gallery">
+                <!-- Images will be added here -->
+            </div>
+            <div class="modal-tech">
+                <h3>Technologies Used</h3>
+                <ul id="modal-tech-list">
+                    <!-- Tech list will be added here -->
+                </ul>
+            </div>
+            <div class="modal-links">
+                <a href="#" id="modal-demo" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                <a href="#" id="modal-github" target="_blank"><i class="fab fa-github"></i> Source Code</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- LIGHTBOX IMG STUFF -->
+<div id="lightbox-overlay" class="lightbox-overlay">
+    <div class="lightbox-container">
+        <div class="lightbox-close"><i class="fas fa-times"></i></div>
+        <div class="lightbox-navigation">
+            <div class="lightbox-prev"><i class="fas fa-chevron-left"></i></div>
+            <div class="lightbox-next"><i class="fas fa-chevron-right"></i></div>
+        </div>
+        <div class="lightbox-content">
+            <img id="lightbox-image" src="" alt="Project Image">
+        </div>
+        <div class="lightbox-caption" id="lightbox-caption">Image 1 of 3</div>
+    </div>
+</div>
+
+</body>
+</html>
