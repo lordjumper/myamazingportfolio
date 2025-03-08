@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
             githubLink: '#',
             technologies: ['HTML', 'CSS', 'JS',],
             images: [
-                '/images/placeholder.jpg',
-                '/images/placeholder.jpg'
+                '/img/placeholder.jpg',
+                '/img/placeholder.jpg'
             ]
         },
         {
@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', function() {
             githubLink: '#',
             technologies: ['HTML', 'CSS', 'JS',],
             images: [
-                '/images/placeholder.jpg',
-                '/images/placeholder.jpg'
+                '/img/placeholder.jpg',
+                '/img/placeholder.jpg'
             ]
         },
         {
@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
             githubLink: '#',
             technologies: ['HTML', 'CSS', 'JS',],
             images: [
-                '/images/placeholder.jpg',
-                '/images/placeholder.jpg'
+                '/img/placeholder.jpg',
+                '/img/placeholder.jpg'
             ]
         }
     ];
