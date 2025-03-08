@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
             githubLink: '#',
             technologies: ['HTML', 'CSS', 'JS',],
             images: [
-                '/img/placeholder.jpg',
-                '/img/placeholder.jpg'
+                'https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvtIVwFHvs8JXzDwjgc3BQvTSfnKpe7EGoqHPl',
+                'https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvtIVwFHvs8JXzDwjgc3BQvTSfnKpe7EGoqHPl'
             ]
         },
         {
@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', function() {
             githubLink: '#',
             technologies: ['HTML', 'CSS', 'JS',],
             images: [
-                '/img/placeholder.jpg',
-                '/img/placeholder.jpg'
+                'https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvtIVwFHvs8JXzDwjgc3BQvTSfnKpe7EGoqHPl',
+                'https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvtIVwFHvs8JXzDwjgc3BQvTSfnKpe7EGoqHPl'
             ]
         },
         {
@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
             githubLink: '#',
             technologies: ['HTML', 'CSS', 'JS',],
             images: [
-                '/img/placeholder.jpg',
-                '/img/placeholder.jpg'
+                'https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvtIVwFHvs8JXzDwjgc3BQvTSfnKpe7EGoqHPl',
+                'https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvtIVwFHvs8JXzDwjgc3BQvTSfnKpe7EGoqHPl'
             ]
         }
     ];
