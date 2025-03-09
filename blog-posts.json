@@ -11,6 +11,18 @@
                 "C#",
                 "Game Dev"
             ]
+        },
+        {
+            "id": "getting-started-with-game-dev",
+            "title": "Getting Started with Game Development",
+            "date": "March 08, 2025",
+            "excerpt": "My journey into game development began in 2020 when I first opened Unity. Here's what I've learned along the way...",
+            "content": "<p>When I first opened Unity in 2020, I had no idea how much it would change my approach to software development. Game development combines so many different disciplines—programming, design, animation, sound—into one creative process.</p><h2>Why I Started with Unity</h2><p>Unity offered the perfect balance of power and accessibility for a beginner. Its component-based architecture and visual editor made it easier to understand how different parts of a game work together. Plus, the asset store provided resources that let me focus on learning rather than creating everything from scratch.</p><h2>Learning C# Along the Way</h2><p>One of the greatest benefits of starting with Unity was learning C#. It's a versatile language that translates well to other areas of software development. Here's a simple example of a player movement script:</p><pre><code>using UnityEngine;\n\npublic class PlayerMovement : MonoBehaviour\n{\n    public float speed = 5f;\n    \n    void Update()\n    {\n        float horizontalInput = Input.GetAxis(\"Horizontal\");\n        float verticalInput = Input.GetAxis(\"Vertical\");\n        \n        Vector3 movement = new Vector3(horizontalInput, 0, verticalInput);\n        transform.Translate(movement * speed * Time.deltaTime);\n    }\n}</code></pre><h2>From Games to Web Development</h2><p>The problem-solving skills I developed through game programming have proven invaluable in web development. Both fields require thinking about user experience, performance optimization, and breaking complex systems into manageable components.</p><h3>Key Transferable Skills</h3><ul><li>Object-oriented programming principles</li><li>UI/UX design considerations</li><li>Performance optimization techniques</li><li>Project organization and architecture</li><li>Working with APIs and external tools</li></ul><blockquote>The best way to learn is by building something you're passionate about. For me, that was games, but the principles apply to any coding endeavor.</blockquote><p>As I continue to explore both game and web development, I'm constantly discovering new connections between these seemingly different worlds. Whether you're building a game or a web application, the core principles of good software development remain the same.</p>",
+            "tags": [
+                "Unity",
+                "C#",
+                "Game Dev"
+            ]
         }
     ]
 }

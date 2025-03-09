@@ -41,10 +41,24 @@
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
+/* Blue light pulsing effect for project cards */
+@keyframes bluePulse {
+    0% {
+        box-shadow: 0 0 100px rgba(0, 132, 255, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 95px rgba(0, 132, 255, 0.6);
+    }
+    100% {
+        box-shadow: 0 0 100px rgba(0, 132, 255, 0.3);
+    }
+}
+
 .featured-post:hover {
     transform: translateY(-10px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     border-color: rgba(0, 132, 255, 0.3);
+    animation: bluePulse 3s infinite ease-in-out;
 }
 
 .post-date {
@@ -131,10 +145,25 @@
     flex-direction: column;
 }
 
+/* Blue light pulsing effect for project cards */
+@keyframes bluePulseCard {
+    0% {
+        box-shadow: 0 0 20px rgba(0, 132, 255, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(0, 132, 255, 0.6);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(0, 132, 255, 0.3);
+    }
+}
+
 .post-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     border-color: rgba(0, 132, 255, 0.3);
+    animation: bluePulseCard 3s infinite ease-in-out;
+    
 }
 
 .post-card .post-title {
