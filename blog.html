@@ -11,6 +11,126 @@
     <script src="index.js"></script>
 </head>
 <body>
+
+    <div class="svg-container">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+                <!-- Background -->
+                <rect width="1920" height="1080" fill="#121212"/>
+                
+                <!-- Grid pattern with blue accents -->
+                <defs>
+                    <pattern id="smallGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#1a1a1a" stroke-width="0.5"/>
+                    </pattern>
+                    <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
+                        <rect width="100" height="100" fill="url(#smallGrid)"/>
+                        <path d="M 100 0 L 0 0 0 100" fill="none" stroke="#252525" stroke-width="1"/>
+                    </pattern>
+                    
+                    <!-- Gradient for the fade effect -->
+                    <linearGradient id="fadeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#121212" stop-opacity="0"/>
+                        <stop offset="80%" stop-color="#121212" stop-opacity="1"/>
+                        <stop offset="100%" stop-color="#121212" stop-opacity="1"/>
+                    </linearGradient>
+                    
+                    <!-- Radial gradient for glow effects -->
+                    <radialGradient id="blueGlow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                        <stop offset="0%" stop-color="#558bff" stop-opacity="0.6"/>
+                        <stop offset="100%" stop-color="#558bff" stop-opacity="0"/>
+                    </radialGradient>
+                </defs>
+                
+                <!-- Grid background -->
+                <rect width="1920" height="1080" fill="url(#grid)"/>
+                
+                <!-- Abstract shapes with blue accents -->
+                <g opacity="0.15">
+                    <!-- Abstract lines mimicking code patterns -->
+                    <line x1="200" y1="200" x2="800" y2="200" stroke="#558bff" stroke-width="1" stroke-opacity="0.3"/>
+                    <line x1="200" y1="250" x2="700" y2="250" stroke="#558bff" stroke-width="1" stroke-opacity="0.3"/>
+                    <line x1="200" y1="300" x2="750" y2="300" stroke="#558bff" stroke-width="1" stroke-opacity="0.3"/>
+                    <line x1="200" y1="350" x2="650" y2="350" stroke="#558bff" stroke-width="1" stroke-opacity="0.3"/>
+                    <line x1="200" y1="400" x2="720" y2="400" stroke="#558bff" stroke-width="1" stroke-opacity="0.3"/>
+                    
+                    <line x1="1100" y1="600" x2="1700" y2="600" stroke="#558bff" stroke-width="1" stroke-opacity="0.3"/>
+                    <line x1="1100" y1="650" x2="1600" y2="650" stroke="#558bff" stroke-width="1" stroke-opacity="0.3"/>
+                    <line x1="1100" y1="700" x2="1650" y2="700" stroke="#558bff" stroke-width="1" stroke-opacity="0.3"/>
+                    <line x1="1100" y1="750" x2="1550" y2="750" stroke="#558bff" stroke-width="1" stroke-opacity="0.3"/>
+                    <line x1="1100" y1="800" x2="1620" y2="800" stroke="#558bff" stroke-width="1" stroke-opacity="0.3"/>
+                </g>
+                
+                <!-- Blue circles reminiscent of the pulse animation in project cards -->
+                <circle cx="400" cy="800" r="200" fill="url(#blueGlow)" opacity="0.2">
+                    <animate attributeName="opacity" values="0.2;0.4;0.2" dur="4s" repeatCount="indefinite"/>
+                </circle>
+                
+                <circle cx="1600" cy="300" r="250" fill="url(#blueGlow)" opacity="0.15">
+                    <animate attributeName="opacity" values="0.15;0.3;0.15" dur="5s" repeatCount="indefinite"/>
+                </circle>
+                
+                <circle cx="900" cy="1000" r="300" fill="url(#blueGlow)" opacity="0.1">
+                    <animate attributeName="opacity" values="0.1;0.25;0.1" dur="6s" repeatCount="indefinite"/>
+                </circle>
+                
+                <!-- Subtle digital particle effect -->
+                <g id="particles">
+                    <circle cx="300" cy="200" r="1" fill="#558bff" opacity="0.4"/>
+                    <circle cx="700" cy="500" r="1.5" fill="#558bff" opacity="0.5"/>
+                    <circle cx="1200" cy="300" r="1" fill="#558bff" opacity="0.6"/>
+                    <circle cx="1600" cy="700" r="1.5" fill="#558bff" opacity="0.4"/>
+                    <circle cx="400" cy="900" r="1" fill="#558bff" opacity="0.5"/>
+                    <circle cx="900" cy="200" r="1.5" fill="#558bff" opacity="0.6"/>
+                    <circle cx="1500" cy="400" r="1" fill="#558bff" opacity="0.4"/>
+                    <circle cx="200" cy="600" r="1.5" fill="#558bff" opacity="0.5"/>
+                    <circle cx="1100" cy="900" r="1" fill="#558bff" opacity="0.6"/>
+                    <circle cx="1700" cy="150" r="1.5" fill="#558bff" opacity="0.4"/>
+                    
+                    <!-- 30 more particles with different positions -->
+                    <circle cx="250" cy="150" r="1" fill="#558bff" opacity="0.5"/>
+                    <circle cx="650" cy="450" r="1.2" fill="#558bff" opacity="0.4"/>
+                    <circle cx="1150" cy="350" r="1" fill="#558bff" opacity="0.6"/>
+                    <circle cx="1550" cy="750" r="1.3" fill="#558bff" opacity="0.5"/>
+                    <circle cx="350" cy="850" r="1" fill="#558bff" opacity="0.4"/>
+                    <circle cx="850" cy="250" r="1.2" fill="#558bff" opacity="0.6"/>
+                    <circle cx="1450" cy="450" r="1" fill="#558bff" opacity="0.5"/>
+                    <circle cx="150" cy="650" r="1.3" fill="#558bff" opacity="0.4"/>
+                    <circle cx="1050" cy="950" r="1" fill="#558bff" opacity="0.6"/>
+                    <circle cx="1650" cy="200" r="1.2" fill="#558bff" opacity="0.5"/>
+                    
+                    <circle cx="500" cy="300" r="1" fill="#558bff" opacity="0.4"/>
+                    <circle cx="950" cy="700" r="1.4" fill="#558bff" opacity="0.6"/>
+                    <circle cx="1300" cy="500" r="1" fill="#558bff" opacity="0.5"/>
+                    <circle cx="1750" cy="800" r="1.4" fill="#558bff" opacity="0.4"/>
+                    <circle cx="550" cy="950" r="1" fill="#558bff" opacity="0.6"/>
+                    <circle cx="1000" cy="350" r="1.4" fill="#558bff" opacity="0.5"/>
+                    <circle cx="1350" cy="600" r="1" fill="#558bff" opacity="0.4"/>
+                    <circle cx="100" cy="400" r="1.4" fill="#558bff" opacity="0.6"/>
+                    <circle cx="750" cy="850" r="1" fill="#558bff" opacity="0.5"/>
+                    <circle cx="1400" cy="100" r="1.4" fill="#558bff" opacity="0.4"/>
+                    
+                    <circle cx="300" cy="500" r="1" fill="#558bff" opacity="0.6"/>
+                    <circle cx="800" cy="800" r="1.3" fill="#558bff" opacity="0.5"/>
+                    <circle cx="1250" cy="600" r="1" fill="#558bff" opacity="0.4"/>
+                    <circle cx="1700" cy="900" r="1.3" fill="#558bff" opacity="0.6"/>
+                    <circle cx="450" cy="100" r="1" fill="#558bff" opacity="0.5"/>
+                    <circle cx="950" cy="400" r="1.3" fill="#558bff" opacity="0.4"/>
+                    <circle cx="1500" cy="700" r="1" fill="#558bff" opacity="0.6"/>
+                    <circle cx="200" cy="300" r="1.3" fill="#558bff" opacity="0.5"/>
+                    <circle cx="600" cy="600" r="1" fill="#558bff" opacity="0.4"/>
+                    <circle cx="1100" cy="200" r="1.3" fill="#558bff" opacity="0.6"/>
+                    
+                    <!-- Apply subtle animation to particles -->
+                    <animateTransform attributeName="transform" type="translate" values="0 0; 0 -5; 0 0" dur="3s" repeatCount="indefinite" additive="sum"/>
+                </g>
+                
+                <!-- Fade overlay that will fade in as the user scrolls -->
+                <rect width="1920" height="1080" fill="url(#fadeGradient)"/>
+            </svg>
+        </svg>
+    </div>
+
     <!-- Mobile Navigation -->
     <div class="mobile-menu-toggle">
         <div class="hamburger">
