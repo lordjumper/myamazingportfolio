@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
           // Single post view
           const post = data.posts.find(post => post.id === postId);
           if (post) {
-            displaySinglePost(post);
+            displaySinglePost(post, data.posts);
           } else {
             // Post not found, redirect to blog index
             window.location.href = 'blog.html';
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
     container.innerHTML = featuredPostHTML + postsGridHTML;
   }
   
-  function displaySinglePost(post) {
+  function displaySinglePost(post, allPosts) {
     // Hide the blog container and svg background
     const blogContainer = document.querySelector('.blog-container');
     if (blogContainer) {
@@ -90,13 +90,32 @@ document.addEventListener('DOMContentLoaded', function() {
       document.body.appendChild(blogPostContainer);
     }
     
-    // Previous and next navigation logic
-    // (This is a placeholder - you'd need to implement actual prev/next logic)
+    // Find the current post index
+    const currentIndex = allPosts.findIndex(p => p.id === post.id);
+    
+    // Calculate previous and next post indexes
+    const prevIndex = currentIndex > 0 ? currentIndex - 1 : null;
+    const nextIndex = currentIndex < allPosts.length - 1 ? currentIndex + 1 : null;
+    
+    // Generate previous and next links based on available posts
+    let prevLink = '<a style="visibility: hidden" class="prev"><i class="fas fa-arrow-left"></i> Previous Post</a>';
+    let nextLink = '<a style="visibility: hidden" class="next">Next Post <i class="fas fa-arrow-right"></i></a>';
+    
+    if (prevIndex !== null) {
+      const prevPost = allPosts[prevIndex];
+      prevLink = `<a href="blog.html?post=${prevPost.id}" class="prev" title="${prevPost.title}"><i class="fas fa-arrow-left"></i> Previous Post</a>`;
+    }
+    
+    if (nextIndex !== null) {
+      const nextPost = allPosts[nextIndex];
+      nextLink = `<a href="blog.html?post=${nextPost.id}" class="next" title="${nextPost.title}">Next Post <i class="fas fa-arrow-right"></i></a>`;
+    }
+    
     const prevNextLinks = `
       <div class="post-navigation">
-        <a href="blog.html" class="prev"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+        ${prevLink}
         <a href="blog.html" class="back">All Posts</a>
-        <a href="javascript:void(0)" style="visibility: hidden" class="next">Next Post <i class="fas fa-arrow-right"></i></a>
+        ${nextLink}
       </div>
     `;
     
