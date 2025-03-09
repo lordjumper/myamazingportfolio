@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Add navbar scroll behavior
+    initializeNavbarBehavior();
+
     // Load project data from JSON file
     fetch('projects.json')
         .then(response => {
@@ -19,6 +22,141 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => {
             console.error('Error loading project data:', error);
         });
+
+    // Navbar behavior - hide on scroll, show on hover
+    function initializeNavbarBehavior() {
+        const navbar = document.querySelector('.nav-container');
+        const navLinks = document.querySelectorAll('.nav-links a, .nav-right a, .logo');
+        let lastScrollTop = 0;
+        let isHovering = false;
+        let navbarHeight = navbar.offsetHeight;
+        let timeout;
+        
+        // Create a hover area that will trigger the navbar to reappear
+        const hoverArea = document.createElement('div');
+        hoverArea.className = 'navbar-hover-area';
+        document.body.appendChild(hoverArea);
+        
+        // Handle scroll events
+        window.addEventListener('scroll', function() {
+            let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Don't hide navbar when at the top of the page
+            if (currentScroll <= 50) {
+                navbar.classList.remove('hidden');
+                return;
+            }
+            
+            // Don't hide navbar when user is hovering over it or the hover area
+            if (isHovering) {
+                return;
+            }
+            
+            // Hide navbar when scrolling down, show when scrolling up
+            if (currentScroll > lastScrollTop && currentScroll > navbarHeight) {
+                // Scrolling down
+                navbar.classList.add('hidden');
+            } else {
+                // Scrolling up
+                navbar.classList.remove('hidden');
+            }
+            
+            lastScrollTop = currentScroll;
+        });
+        
+        // Show navbar when hovering over the hover area
+        hoverArea.addEventListener('mouseenter', function() {
+            isHovering = true;
+            navbar.classList.remove('hidden');
+            
+            // Clear any existing timeout
+            if (timeout) {
+                clearTimeout(timeout);
+                timeout = null;
+            }
+        });
+        
+        // Also detect hover on the navbar itself
+        navbar.addEventListener('mouseenter', function() {
+            isHovering = true;
+            navbar.classList.remove('hidden');
+            
+            // Clear any existing timeout
+            if (timeout) {
+                clearTimeout(timeout);
+                timeout = null;
+            }
+        });
+        
+        // Make sure the navbar stays visible when hovering over any nav element
+        navLinks.forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                isHovering = true;
+                navbar.classList.remove('hidden');
+                
+                // Clear any existing timeout
+                if (timeout) {
+                    clearTimeout(timeout);
+                    timeout = null;
+                }
+            });
+        });
+        
+        // When mouse leaves hover area
+        hoverArea.addEventListener('mouseleave', function() {
+            // Small delay before considering the mouse has left
+            timeout = setTimeout(() => {
+                if (!isHoveringNavbar()) {
+                    isHovering = false;
+                    
+                    // If we've scrolled down, hide the navbar again after leaving
+                    let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                    if (currentScroll > 50) {
+                        navbar.classList.add('hidden');
+                    }
+                }
+            }, 300);
+        });
+        
+        // When mouse leaves navbar
+        navbar.addEventListener('mouseleave', function() {
+            // Small delay before considering the mouse has left
+            timeout = setTimeout(() => {
+                if (!isHoveringHoverArea()) {
+                    isHovering = false;
+                    
+                    // If we've scrolled down, hide the navbar again after leaving
+                    let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                    if (currentScroll > 50) {
+                        navbar.classList.add('hidden');
+                    }
+                }
+            }, 300);
+        });
+        
+        // Helper functions to check if we're hovering over specific elements
+        function isHoveringNavbar() {
+            return document.querySelector('.nav-container:hover') !== null;
+        }
+        
+        function isHoveringHoverArea() {
+            return document.querySelector('.navbar-hover-area:hover') !== null;
+        }
+        
+        // Make sure links in the navbar still work
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // If it's a hash link, smoothly scroll to the target
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    }
 
     // Populate project cards in the HTML
     function populateProjectCards(projectsData) {

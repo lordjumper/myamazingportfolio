@@ -39,6 +39,7 @@
     right: 0;
     z-index: 1000;
     padding: 0 20px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .navbar {
@@ -91,6 +92,7 @@
     letter-spacing: 5px;
     white-space: nowrap;
     flex-shrink: 0;
+    padding-right: 85px;
 }
 
 /* Mobile styles */
@@ -1173,4 +1175,42 @@ section {
     section {
         padding: 60px 20px; /* Slightly reduce vertical padding but maintain horizontal */
     }
+}
+
+.nav-container.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none; /* Prevents clicks on hidden navbar */
+}
+
+/* Make sure links are still interactive when navbar is shown */
+.nav-container:not(.hidden) .nav-links a,
+.nav-container:not(.hidden) .nav-right a,
+.nav-container:not(.hidden) .logo {
+    pointer-events: auto;
+}
+
+
+/* Hover area to trigger navbar */
+.navbar-hover-area {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 90px; /* Increased height for easier triggering */
+    z-index: 0; /* Just below the navbar */
+}
+
+/* Ensure the rest of the page starts below the navbar */
+.header {
+    padding-top: 80px; /* Adjust based on your navbar height */
+}
+
+.navbar-hover-area:hover::after {
+    opacity: 1;
+}
+
+/* Only show indicator when navbar is hidden and page is scrolled */
+body.scrolled .nav-container.hidden ~ .navbar-hover-area::after {
+    opacity: 0.5;
 }
