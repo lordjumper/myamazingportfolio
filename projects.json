@@ -1,0 +1,54 @@
+{
+    "sectionTitle": "Projects",
+    "sectionDescription": "Here are some of my recent projects. Click on any card to learn more.",
+    "projects": [
+        {
+            "id": "project1",
+            "title": "Test 1",
+            "shortDescription": "A very cool project that I put as number 1",
+            "description": "This is a more detailed description of Test 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.",
+            "demoLink": "#",
+            "githubLink": "#",
+            "technologies": ["HTML", "CSS", "JavaScript"],
+            "images": [
+                "https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvtIVwFHvs8JXzDwjgc3BQvTSfnKpe7EGoqHPl",
+                "https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvtIVwFHvs8JXzDwjgc3BQvTSfnKpe7EGoqHPl"
+            ],
+            "featured": true
+        },
+        {
+            "id": "project2",
+            "title": "Test 2",
+            "shortDescription": "A very cool project that I put as number 2",
+            "description": "This is a more detailed description of Test 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.",
+            "demoLink": "#",
+            "githubLink": "#",
+            "technologies": ["React", "Node.js", "MongoDB"],
+            "images": [
+                "https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvtIVwFHvs8JXzDwjgc3BQvTSfnKpe7EGoqHPl",
+                "https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvtIVwFHvs8JXzDwjgc3BQvTSfnKpe7EGoqHPl"
+            ],
+            "featured": true
+        },
+        {
+            "id": "project3",
+            "title": "Test 3",
+            "shortDescription": "A very cool project that I put as number 3",
+            "description": "This is a more detailed description of Test 3. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.",
+            "demoLink": "#",
+            "githubLink": "#",
+            "technologies": ["TypeScript", "Express", "PostgreSQL"],
+            "images": [
+                "https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvtIVwFHvs8JXzDwjgc3BQvTSfnKpe7EGoqHPl",
+                "https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvtIVwFHvs8JXzDwjgc3BQvTSfnKpe7EGoqHPl"
+            ],
+            "featured": true
+        }
+    ],
+    "display": {
+        "maxProjectsToShow": 6,
+        "showFeaturedOnly": false,
+        "cardsPerRow": 3,
+        "showTechStack": true
+    }
+}
