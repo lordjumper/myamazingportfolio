@@ -48,7 +48,7 @@
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    border: 1px solid #3d3d3d;
     max-width: 1000px;
     margin: 0 auto;
 }
@@ -1125,3 +1125,49 @@ svg {
   .nav-container, header, section, footer {
     z-index: 1;
   }
+
+  /* Improve container padding for all screen sizes */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px; /* Add default padding */
+}
+
+/* Ensure sections have proper padding */
+section {
+    padding: 100px 20px; /* Add horizontal padding to sections */
+    scroll-margin-top: 100px;
+}
+
+/* Adjust header padding */
+.header {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px; /* Ensure consistent padding */
+}
+
+/* Enhance mobile responsiveness */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 25px; /* Slightly increase padding on smaller screens */
+    }
+    
+    section {
+        padding: 70px 25px; /* Adjust section padding for mobile */
+    }
+}
+
+/* Further adjustments for very small screens */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 20px; /* Maintain consistent padding */
+    }
+    
+    section {
+        padding: 60px 20px; /* Slightly reduce vertical padding but maintain horizontal */
+    }
+}

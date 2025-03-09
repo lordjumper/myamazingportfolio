@@ -273,3 +273,46 @@ function displaySinglePost(post, allPosts) {
       });
     }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to handle the footer visibility
+    function handleFooter() {
+      const footer = document.querySelector('footer');
+      if (!footer) return;
+      
+      // Check if we're on a single blog post page
+      const isSinglePost = document.querySelector('.blog-post-container');
+      const urlParams = new URLSearchParams(window.location.search);
+      const postId = urlParams.get('post');
+      
+      // If we're viewing a single post or the URL has a post parameter, hide the footer
+      if (isSinglePost || postId) {
+        footer.style.display = 'none';
+      } else {
+        // We're on the main blog index, position the footer after content
+        const blogContainer = document.querySelector('.blog-container');
+        
+        if (blogContainer) {
+          // Wait for blog content to fully load
+          let checkContent = setInterval(function() {
+            if (blogContainer.offsetHeight > 0) {
+              clearInterval(checkContent);
+              
+              // Show footer and position it after blog content
+              footer.style.display = 'block';
+              document.body.appendChild(footer);
+              footer.style.marginTop = '2rem';
+            }
+          }, 100);
+        }
+      }
+    }
+    
+    // Run the function when page loads
+    handleFooter();
+    
+    // Also handle footer when URL changes (for single-page applications)
+    window.addEventListener('popstate', function() {
+      handleFooter();
+    });
+  });
