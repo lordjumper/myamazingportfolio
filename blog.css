@@ -350,7 +350,6 @@
 /* Blog Search */
 .blog-search-wrapper {
     margin-bottom: 1.5rem;
-    border-radius: 6px;
     padding: 1rem;
     border: 1px solid #2a2a2a00;
   }
@@ -377,7 +376,8 @@
   
   .search-container input:focus {
     outline: none;
-    border-color: #558bff;
+    border: none;
+    border-bottom: 1px solid #558bff;
   }
   
   .search-container .search-button {
