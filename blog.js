@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Restore all original elements and their visibility
       const blogHeader = document.querySelector('.blog-header');
       if (blogHeader) {
-          blogHeader.style.display = '';
+          blogHeader.style.display = ''; // Reset to default display style
       }
       
       const svgContainer = document.querySelector('.svg-container');
@@ -271,10 +271,16 @@ function displayBlogIndex(posts, allPosts, activeTag, searchQuery, filterType) {
 }
 
 function displaySinglePost(post, allPosts) {
-  // Hide the blog container but do NOT hide the header
+  // Hide the blog container
   const blogContainer = document.querySelector('.blog-container');
   if (blogContainer) {
     blogContainer.style.display = 'none';
+  }
+  
+  // Hide the blog header when displaying a single post
+  const blogHeader = document.querySelector('.blog-header');
+  if (blogHeader) {
+    blogHeader.style.display = 'none';
   }
   
   // Create the blog post container if it doesn't exist
@@ -283,10 +289,10 @@ function displaySinglePost(post, allPosts) {
     blogPostContainer = document.createElement('div');
     blogPostContainer.className = 'blog-post-container';
     
-    // Important: Insert after the header, not at the end of body
-    const header = document.querySelector('.blog-header') || document.querySelector('header');
-    if (header && header.nextSibling) {
-      document.body.insertBefore(blogPostContainer, header.nextSibling);
+    // Important: Insert after the navigation, not after the header (since header is now hidden)
+    const navContainer = document.querySelector('.nav-container');
+    if (navContainer && navContainer.nextSibling) {
+      document.body.insertBefore(blogPostContainer, navContainer.nextSibling);
     } else {
       document.body.appendChild(blogPostContainer);
     }

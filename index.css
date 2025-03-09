@@ -150,7 +150,7 @@
         
         /* Header styles */
         .header {
-            height: 100vh;
+            max-height: 50vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
