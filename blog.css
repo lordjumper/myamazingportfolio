@@ -1,13 +1,13 @@
 /* Blog specific styles */
 .blog-header {
-    height: 40vh;
+    height: 500px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     padding: 0 20px;
-    margin-bottom: 50px;
+    margin-bottom: -50px;
 }
 
 .blog-header h1 {
@@ -359,14 +359,17 @@
     margin-bottom: 1rem;
   }
   
-  .search-container form {
-    display: flex;
-    width: fit-content;
-  }
-  
-  .search-container input {
-    flex: 1;
-    padding: 8px 12px;
+ /* Search container modifications */
+.search-container form {
+  display: flex;
+  width: 100%;
+  max-width: fit-content;
+  position: relative;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 8px 10px 8px 35px; /* Add left padding for the icon */
     font-size: 14px;
     background-color: #1e1e1e00;
     border: none;
@@ -374,27 +377,37 @@
     color: #fff;
     transition: all 0.2s ease;
     font-family: 'Fira Code', monospace;
-    z-index: 5;
+    outline: none; /* Remove the default outline */
   }
   
+  /* You might also want to add a custom focus style */
   .search-container input:focus {
-    outline: none;
-    border: none;
-    border-bottom: 1px solid #558bff;
-    background-color: none;
-  }
-  
-  .search-container .search-button {
-    background-color: #558bff00;
-    color: white;
-    border: none;
-    padding: 0px 6px;
-    cursor: pointer;
+    border-bottom: 1px solid #558bff; /* Change border color on focus */
   }
 
-  .search-container .search-button:hover {
-    color: #558bff;
-  }
+.search-container .search-button {
+  background-color: transparent;
+  color: white;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.search-container .search-button i {
+  font-size: 14px;
+  color: #858585;
+  transition: color 0.2s ease;
+}
+
+.search-container input:focus + .search-button i,
+.search-container .search-button:hover i {
+  color: #558bff;
+}
   
   .tag-filter h3 {
     margin: 0 0 0.5rem;
@@ -497,7 +510,7 @@
     }
     
     .search-container input {
-      padding: 7px 10px;
+      padding: 7px 30px;
       border-radius: 0%;
     }
   }

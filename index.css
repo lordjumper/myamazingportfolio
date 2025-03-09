@@ -9,6 +9,7 @@
         }
         
         body {
+            overflow-y: scroll;
             background-color: #121212;
             color: #e0e0e0;
             font-family: 'Fira Code', monospace;
@@ -237,6 +238,12 @@
             gap: 1rem;
             align-items: center;
             margin-bottom: 30px;
+        }
+
+        @media (max-width:940px) {
+            .projects-grid{
+                grid-template-columns: repeat(1, 1fr);
+            }
         }
 
         
