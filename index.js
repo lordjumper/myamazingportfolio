@@ -206,3 +206,62 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// Mobile Menu Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const mobileMenuClose = document.querySelector('.mobile-menu-close');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-links a');
+    
+    // Toggle menu on hamburger click
+    mobileMenuToggle.addEventListener('click', function() {
+        mobileMenu.classList.toggle('active');
+        document.body.classList.toggle('mobile-menu-open');
+        mobileMenuToggle.classList.toggle('active');
+    });
+    
+    // Close menu on X click
+    mobileMenuClose.addEventListener('click', function() {
+        mobileMenu.classList.remove('active');
+        document.body.classList.remove('mobile-menu-open');
+        mobileMenuToggle.classList.remove('active');
+    });
+    
+    // Close menu when a link is clicked
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            mobileMenu.classList.remove('active');
+            document.body.classList.remove('mobile-menu-open');
+            mobileMenuToggle.classList.remove('active');
+            
+            // Small delay for smoother navigation experience
+            const href = this.getAttribute('href');
+            if (href.startsWith('#')) {
+                setTimeout(() => {
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }, 300);
+            }
+        });
+    });
+    
+    // Close menu when clicking outside the menu content
+    mobileMenu.addEventListener('click', function(e) {
+        if (e.target === mobileMenu) {
+            mobileMenu.classList.remove('active');
+            document.body.classList.remove('mobile-menu-open');
+            mobileMenuToggle.classList.remove('active');
+        }
+    });
+    
+    // Add resize listener to handle window size changes
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768 && mobileMenu.classList.contains('active')) {
+            mobileMenu.classList.remove('active');
+            document.body.classList.remove('mobile-menu-open');
+            mobileMenuToggle.classList.remove('active');
+        }
+    });
+});
