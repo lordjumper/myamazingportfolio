@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Get query parameter to determine if we're viewing a single post
+    // Get query parameters
     const urlParams = new URLSearchParams(window.location.search);
     const postId = urlParams.get('post');
+    const searchTag = urlParams.get('tag');
+    const searchQuery = urlParams.get('q');
     
     fetch('./blog-posts.json')
       .then(response => response.json())
@@ -16,18 +18,105 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'blog.html';
           }
         } else {
-          // Blog index view
-          displayBlogIndex(data.posts);
+          // Blog index view - with or without filtering
+          let filteredPosts = data.posts;
+          let filterType = null;
+          
+          // Filter posts by tag if a tag parameter is provided
+          if (searchTag) {
+            filteredPosts = data.posts.filter(post => 
+              post.tags.some(tag => tag.toLowerCase() === searchTag.toLowerCase())
+            );
+            filterType = 'tag';
+          }
+          
+          // Filter posts by search query (title or tags)
+          if (searchQuery) {
+            const query = searchQuery.toLowerCase();
+            filteredPosts = data.posts.filter(post => 
+              post.title.toLowerCase().includes(query) || 
+              post.tags.some(tag => tag.toLowerCase().includes(query))
+            );
+            filterType = 'search';
+          }
+          
+          displayBlogIndex(filteredPosts, data.posts, searchTag, searchQuery, filterType);
         }
       })
       .catch(error => {
         console.error('Error fetching blog posts:', error);
       });
-  });
-  
-  function displayBlogIndex(posts) {
-    const featuredPost = posts[0]; // Most recent post is featured
+      
+    // Add event listener for search form submission
+    const searchForm = document.getElementById('blog-search-form');
+    if (searchForm) {
+      searchForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const searchInput = document.getElementById('blog-search-input');
+        if (searchInput.value.trim()) {
+          window.location.href = `blog.html?q=${encodeURIComponent(searchInput.value.trim())}`;
+        }
+      });
+    }
+});
+
+function displayBlogIndex(posts, allPosts, activeTag, searchQuery, filterType) {
     const container = document.querySelector('.blog-container');
+    
+    // Create search bar and filter section
+    const allTags = [...new Set(allPosts.flatMap(post => post.tags))].sort();
+    
+    let searchHTML = `
+      <div class="blog-search-wrapper">
+        <div class="search-container">
+          <form id="blog-search-form">
+            <input type="text" id="blog-search-input" placeholder="Search by title or tag..." 
+                value="${searchQuery || ''}" aria-label="Search posts">
+            <button type="submit" class="search-button">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
+        </div>
+        
+        <div class="tag-filter">
+          <h3>Filter by Tag</h3>
+          <div class="tag-list">
+            <a href="blog.html" class="tag-link ${!activeTag ? 'active' : ''}">All</a>
+            ${allTags.map(tag => 
+              `<a href="blog.html?tag=${encodeURIComponent(tag)}" 
+                  class="tag-link ${activeTag && tag.toLowerCase() === activeTag.toLowerCase() ? 'active' : ''}">${tag}</a>`
+            ).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+    
+    if (posts.length === 0) {
+      // No posts found
+      let message = '';
+      if (filterType === 'tag') {
+        message = `No posts found with the tag "${activeTag}".`;
+      } else if (filterType === 'search') {
+        message = `No posts found matching "${searchQuery}".`;
+      }
+      
+      container.innerHTML = searchHTML + `
+        <div class="no-results">
+          <p>${message} <a href="blog.html">View all posts</a>.</p>
+        </div>
+      `;
+      return;
+    }
+    
+    // Display search results header if needed
+    let resultsHeader = '';
+    if (filterType === 'tag') {
+      resultsHeader = `<div class="search-results-header"><h2>Posts tagged with "${activeTag}"</h2></div>`;
+    } else if (filterType === 'search') {
+      resultsHeader = `<div class="search-results-header"><h2>Search results for "${searchQuery}"</h2></div>`;
+    }
+    
+    const featuredPost = posts[0]; // Most recent post is featured
     
     // Create featured post HTML
     const featuredPostHTML = `
@@ -37,7 +126,9 @@ document.addEventListener('DOMContentLoaded', function() {
         <p class="post-excerpt">${featuredPost.excerpt}</p>
         <a href="blog.html?post=${featuredPost.id}" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
         <div class="post-tags">
-          ${featuredPost.tags.map(tag => `<span>${tag}</span>`).join('')}
+          ${featuredPost.tags.map(tag => 
+            `<a href="blog.html?tag=${encodeURIComponent(tag)}" class="tag-pill">${tag}</a>`
+          ).join('')}
         </div>
       </div>
     `;
@@ -54,7 +145,9 @@ document.addEventListener('DOMContentLoaded', function() {
           <p class="post-excerpt">${post.excerpt}</p>
           <a href="blog.html?post=${post.id}" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
           <div class="post-tags">
-            ${post.tags.map(tag => `<span>${tag}</span>`).join('')}
+            ${post.tags.map(tag => 
+              `<a href="blog.html?tag=${encodeURIComponent(tag)}" class="tag-pill">${tag}</a>`
+            ).join('')}
           </div>
         </div>
       `).join('');
@@ -62,10 +155,22 @@ document.addEventListener('DOMContentLoaded', function() {
     
     postsGridHTML += '</div>';
     
-    container.innerHTML = featuredPostHTML + postsGridHTML;
-  }
-  
-  function displaySinglePost(post, allPosts) {
+    container.innerHTML = searchHTML + resultsHeader + featuredPostHTML + postsGridHTML;
+    
+    // Re-attach the event listener to the search form
+    const searchForm = document.getElementById('blog-search-form');
+    if (searchForm) {
+      searchForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const searchInput = document.getElementById('blog-search-input');
+        if (searchInput.value.trim()) {
+          window.location.href = `blog.html?q=${encodeURIComponent(searchInput.value.trim())}`;
+        }
+      });
+    }
+}
+
+function displaySinglePost(post, allPosts) {
     // Hide the blog container and svg background
     const blogContainer = document.querySelector('.blog-container');
     if (blogContainer) {
@@ -119,14 +224,29 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     `;
     
+    // Add search bar to the post view for easy navigation back to search
+    const searchBar = `
+      <div class="search-container single-post-search">
+        <form id="blog-search-form" action="blog.html">
+          <input type="text" id="blog-search-input" placeholder="Search by title or tag..." aria-label="Search posts">
+          <button type="submit" class="search-button">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+      </div>
+    `;
+    
     // Fill the blog post container with content
     blogPostContainer.innerHTML = `
+      ${searchBar}
       <article>
         <header class="post-header">
           <div class="post-date">${post.date}</div>
           <h1 class="post-title">${post.title}</h1>
           <div class="post-tags">
-            ${post.tags.map(tag => `<span>${tag}</span>`).join('')}
+            ${post.tags.map(tag => 
+              `<a href="blog.html?tag=${encodeURIComponent(tag)}" class="tag-pill">${tag}</a>`
+            ).join('')}
           </div>
         </header>
         
@@ -140,4 +260,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update the page title
     document.title = `${post.title} | Mina's Blog`;
-  }
+    
+    // Re-attach the event listener to the search form
+    const searchForm = document.getElementById('blog-search-form');
+    if (searchForm) {
+      searchForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const searchInput = document.getElementById('blog-search-input');
+        if (searchInput.value.trim()) {
+          window.location.href = `blog.html?q=${encodeURIComponent(searchInput.value.trim())}`;
+        }
+      });
+    }
+}
