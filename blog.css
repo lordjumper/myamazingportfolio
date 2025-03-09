@@ -372,12 +372,15 @@
     border-bottom: 1px solid #252525;
     color: #fff;
     transition: all 0.2s ease;
+    font-family: 'Fira Code', monospace;
+    z-index: 5;
   }
   
   .search-container input:focus {
     outline: none;
     border: none;
     border-bottom: 1px solid #558bff;
+    background-color: none;
   }
   
   .search-container .search-button {
@@ -494,6 +497,7 @@
     
     .search-container input {
       padding: 7px 10px;
+      border-radius: 0%;
     }
   }
 
