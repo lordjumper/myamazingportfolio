@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Also detect hover on the navbar itself
+        // detect hover on the navbar itself
         navbar.addEventListener('mouseenter', function() {
             isHovering = true;
             navbar.classList.remove('hidden');
