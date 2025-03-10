@@ -1156,15 +1156,15 @@ section {
 /* Enhance mobile responsiveness */
 @media (max-width: 768px) {
     .container {
-        padding: 0 25px; /* Slightly increase padding on smaller screens */
+        padding: 0 25px; 
     }
     
     section {
-        padding: 70px 25px; /* Adjust section padding for mobile */
+        padding: 70px 25px; 
     }
 }
 
-/* Further adjustments for very small screens */
+/* adjustments for very small screens */
 @media (max-width: 480px) {
     .container {
         padding: 0 20px; /* Maintain consistent padding */
@@ -1195,13 +1195,13 @@ section {
     top: 0;
     left: 0;
     right: 0;
-    height: 90px; /* Increased height for easier triggering */
+    height: 90px; 
     z-index: 0; /* Just below the navbar */
 }
 
 /* Ensure the rest of the page starts below the navbar */
 .header {
-    padding-top: 80px; /* Adjust based on your navbar height */
+    padding-top: 80px; 
 }
 
 .navbar-hover-area:hover::after {
