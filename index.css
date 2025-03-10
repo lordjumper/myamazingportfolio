@@ -88,11 +88,11 @@
 .logo {
     font-family: 'Lora', serif;
     font-size: 1.4rem;
-    color: #ffffff;
+    color: #888;
     letter-spacing: 5px;
     white-space: nowrap;
     flex-shrink: 0;
-    padding-right: 85px;
+    height: 15px;
 }
 
 /* Mobile styles */
@@ -150,7 +150,7 @@
         
         /* Header styles */
         .header {
-            max-height: 50vh;
+            max-height: 55vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -252,13 +252,13 @@
 /* Blue light pulsing effect for project cards */
 @keyframes bluePulse {
     0% {
-        box-shadow: 0 0 100px rgba(0, 132, 255, 0.3);
+        box-shadow: 0 0 50px rgba(0, 132, 255, 0.3);
     }
     50% {
-        box-shadow: 0 0 95px rgba(0, 132, 255, 0.6);
+        box-shadow: 0 0 45px rgba(0, 132, 255, 0.6);
     }
     100% {
-        box-shadow: 0 0 100px rgba(0, 132, 255, 0.3);
+        box-shadow: 0 0 50px rgba(0, 132, 255, 0.3);
     }
 }
 
@@ -272,7 +272,7 @@
 }
 
 .project-card:hover {
-    transform: translateY(-25px);
+    transform: translateY(-10px);
     animation: bluePulse 3s infinite ease-in-out;
     border-color: rgba(0, 132, 255, 0.6);
 }
@@ -346,21 +346,19 @@
         /* Resume section */
         .resume-button {
             display: inline-block;
-            background-color: transparent;
             color: #558bff;
+            background-color: transparent;
             border: 1px solid #558bff;
             border-radius: 3px;
-            padding: 12px 24px;
+            padding: 6px 12px;
             font-family: 'Fira Code', monospace;
             font-size: 0.9rem;
             text-decoration: none;
-            margin-top: 25px;
             transition: background-color 0.3s, transform 0.2s;
         }
         
         .resume-button:hover {
-            background-color: #558bff21;
-            transform: translateY(-2px);
+            background-color: #558bff1c;
         }
         
         /* Footer */
@@ -738,7 +736,7 @@ body.modal-open {
 @media (max-width: 768px) {
     .header {
         padding: 0 20px;
-        max-height: 50vh;
+        max-height: 55vh;
     }
     
     .description {
