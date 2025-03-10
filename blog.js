@@ -947,3 +947,19 @@ document.addEventListener('DOMContentLoaded', function() {
   // Setup like/dislike system
   setupLikeDislikeSystem();
 });
+
+// Resets scroll to top of page when navigation buttons are pressed
+document.addEventListener('DOMContentLoaded', function() {
+  // Add click listener for next/prev navigation
+  document.body.addEventListener('click', function(e) {
+    // clicked elements that trigger scroll reset
+    const isNavLink = e.target.closest('.post-navigation .prev, .post-navigation .next, .post-navigation .back, .read-more');
+    if (isNavLink) {
+      // After the browser processes the click but before the new content loads
+      // Add a small timeout to ensure this runs after the default link handling
+      setTimeout(function() {
+        window.scrollTo(0, 0);
+      }, 10);
+    }
+  });
+});
