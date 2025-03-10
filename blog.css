@@ -519,3 +519,104 @@
 .single-post-search {
     display: none;
   }
+
+
+  /* Add these styles to your blog.css file */
+
+/* Post reactions on single post page */
+.post-reactions {
+    margin: 3rem 0 2rem;
+    text-align: center;
+    padding: 1.5rem;
+    background-color: rgba(85, 139, 255, 0.05);
+    border-radius: 8px;
+  }
+  
+  .reaction-title {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #e0e0e0;
+  }
+  
+  .reaction-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
+  
+  .post-reaction-like,
+  .post-reaction-dislike {
+    background: none;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 0.5rem 1.2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+    color: #e0e0e0;
+  }
+  
+  .post-reaction-like:hover,
+  .post-reaction-dislike:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .post-reaction-like.active {
+    color: #4CAF50;
+    border-color: #4CAF50;
+    background-color: rgba(76, 175, 80, 0.1);
+  }
+  
+  .post-reaction-dislike.active {
+    color: #F44336;
+    border-color: #F44336;
+    background-color: rgba(244, 67, 54, 0.1);
+  }
+  
+  .post-likes,
+  .post-dislikes {
+    font-weight: 500;
+  }
+  
+  /* Reaction indicators on post cards */
+  .card-reaction-indicator {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    display: flex;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: #aaa;
+  }
+  
+  .featured-post .card-reaction-indicator {
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+  }
+  
+  .card-likes,
+  .card-dislikes {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  
+  .card-likes {
+    color: rgba(255, 255, 255, 0.233);
+  }
+  
+  .card-dislikes {
+    color: rgba(255, 255, 255, 0.233);
+  }
+  
+  /* Make post cards position relative to support absolute positioning */
+  .post-card, 
+  .featured-post {
+    position: relative;
+    padding-bottom: 2.5rem; /* Add space for reaction indicators */
+  }
