@@ -738,8 +738,7 @@ body.modal-open {
 @media (max-width: 768px) {
     .header {
         padding: 0 20px;
-        height: auto;
-        min-height: 100vh;
+        max-height: 50vh;
     }
     
     .description {
