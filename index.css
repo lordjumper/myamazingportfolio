@@ -39,7 +39,7 @@
     right: 0;
     z-index: 1000;
     padding: 0 20px;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.1s ease-in-out;
 }
 
 .navbar {
@@ -1207,9 +1207,4 @@ section {
 
 .navbar-hover-area:hover::after {
     opacity: 1;
-}
-
-/* Only show indicator when navbar is hidden and page is scrolled */
-body.scrolled .nav-container.hidden ~ .navbar-hover-area::after {
-    opacity: 0.5;
 }
