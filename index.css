@@ -517,8 +517,8 @@
 
 .modal-close {
     position: absolute;
-    top: 25px;
-    right: 15px;
+    top: 15px;
+    right: 20px;
     color: #888;
     font-size: 1.5rem;
     cursor: pointer;
