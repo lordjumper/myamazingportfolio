@@ -3,44 +3,16 @@
     "sectionDescription": "Here are some of my recent projects. Click on any card to learn more.",
     "projects": [
         {
-            "id": "project1",
-            "title": "Test 1",
-            "shortDescription": "A very cool project that I put as number 1",
-            "description": "This is a more detailed description of Test 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.",
-            "demoLink": "#",
-            "githubLink": "#",
+            "id": "portfolio-project",
+            "title": "Portfolio Website",
+            "shortDescription": "The very site you're on right now!",
+            "description": "A nice sleek website I made to display my projects and to blog about my thoughts. It is completely made in vanilla html,css,and js. Yeah, not much else to say.",
+            "demoLink": "https://minazaky.com",
+            "githubLink": "https://github.com/lordjumper/myamazingportfolio",
             "technologies": ["HTML", "CSS", "JavaScript"],
             "images": [
-                "https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvtIVwFHvs8JXzDwjgc3BQvTSfnKpe7EGoqHPl",
-                "https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvtIVwFHvs8JXzDwjgc3BQvTSfnKpe7EGoqHPl"
-            ],
-            "featured": true
-        },
-        {
-            "id": "project2",
-            "title": "Test 2",
-            "shortDescription": "A very cool project that I put as number 2",
-            "description": "This is a more detailed description of Test 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.",
-            "demoLink": "#",
-            "githubLink": "#",
-            "technologies": ["React", "Node.js", "MongoDB"],
-            "images": [
-                "https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvtIVwFHvs8JXzDwjgc3BQvTSfnKpe7EGoqHPl",
-                "https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvtIVwFHvs8JXzDwjgc3BQvTSfnKpe7EGoqHPl"
-            ],
-            "featured": true
-        },
-        {
-            "id": "project3",
-            "title": "Test 3",
-            "shortDescription": "A very cool project that I put as number 3",
-            "description": "This is a more detailed description of Test 3. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.",
-            "demoLink": "#",
-            "githubLink": "#",
-            "technologies": ["TypeScript", "Express", "PostgreSQL"],
-            "images": [
-                "https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvtIVwFHvs8JXzDwjgc3BQvTSfnKpe7EGoqHPl",
-                "https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvtIVwFHvs8JXzDwjgc3BQvTSfnKpe7EGoqHPl"
+                "https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvmX8NMDKrYEXypnfb9LW56kuBr4FRMzVqKlJs",
+                "https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvxGFgOZ7EzTdHse1NuiSfqjlUBtX5ovQ8WkDR"
             ],
             "featured": true
         }
