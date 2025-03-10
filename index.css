@@ -277,7 +277,6 @@
     border-color: rgba(0, 132, 255, 0.6);
 }
 
-/* Optional: adds a subtle green tint to the card border during hover */
 .project-card::before {
     content: '';
     position: absolute;
@@ -518,7 +517,7 @@
 
 .modal-close {
     position: absolute;
-    top: 15px;
+    top: 25px;
     right: 15px;
     color: #888;
     font-size: 1.5rem;
@@ -527,7 +526,7 @@
     z-index: 10;
 }
 
-.modal-close:hover {
+.modal-close:hover{
     color: #558bff;
 }
 
