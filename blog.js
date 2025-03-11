@@ -53,15 +53,30 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Filter posts by tag if a tag parameter is provided
         if (searchTag) {
-          filteredPosts = allPostsData.posts.filter(post => 
-            post.tags.some(tag => tag.toLowerCase() === searchTag.toLowerCase())
-          );
-          filterType = 'tag';
+          // Special handling for "liked" posts
+          if (searchTag.toLowerCase() === 'liked') {
+            // Get all liked posts from localStorage
+            const userReactions = JSON.parse(localStorage.getItem('userReactions') || '{}');
+            // Make sure we only include posts that have an active 'like' reaction
+            const likedPostIds = Object.keys(userReactions).filter(
+              postId => userReactions[postId] === 'like'
+            );
+            
+            filteredPosts = allPostsData.posts.filter(post => 
+              likedPostIds.includes(post.id)
+            );
+            filterType = 'liked';
+          } else {
+            filteredPosts = allPostsData.posts.filter(post => 
+              post.tags.some(tag => tag.toLowerCase() === searchTag.toLowerCase())
+            );
+            filterType = 'tag';
+          }
         }
         
         // Filter posts by search query (title or tags)
-        if (searchQuery) {
-          const query = searchQuery.toLowerCase();
+        if (searchQuery && searchQuery.trim() !== '') {
+          const query = searchQuery.toLowerCase().trim();
           filteredPosts = allPostsData.posts.filter(post => 
             post.title.toLowerCase().includes(query) || 
             post.tags.some(tag => tag.toLowerCase().includes(query))
@@ -140,14 +155,20 @@ document.addEventListener('DOMContentLoaded', function() {
       if (form) {
           e.preventDefault();
           const searchInput = form.querySelector('#blog-search-input');
-          if (searchInput && searchInput.value.trim()) {
-              const searchQuery = encodeURIComponent(searchInput.value.trim());
+          
+          if (searchInput) {
+              const searchValue = searchInput.value.trim();
               
-              // Update URL without reloading
-              updateURLWithoutReload(`blog.html?q=${searchQuery}`);
-              
-              // Process search
-              processView(null, null, searchInput.value.trim());
+              if (searchValue) {
+                  // Search query is not empty, update URL and process search
+                  const searchQuery = encodeURIComponent(searchValue);
+                  updateURLWithoutReload(`blog.html?q=${searchQuery}`);
+                  processView(null, null, searchValue);
+              } else {
+                  // Search query is empty, show all posts
+                  updateURLWithoutReload('blog.html');
+                  processView(null, null, null);
+              }
           }
           return false;
       }
@@ -172,6 +193,13 @@ function displayBlogIndex(posts, allPosts, activeTag, searchQuery, filterType) {
   // Create search bar and filter section
   const allTags = [...new Set(allPosts.flatMap(post => post.tags))].sort();
   
+  // Check if there are any liked posts
+  const userReactions = JSON.parse(localStorage.getItem('userReactions') || '{}');
+  const hasLikedPosts = Object.values(userReactions).includes('like');
+  
+  // Determine if "liked" filter is active
+  const isLikedActive = activeTag && activeTag.toLowerCase() === 'liked';
+  
   let searchHTML = `
     <div class="blog-search-wrapper">
       <div class="search-container">
@@ -192,6 +220,12 @@ function displayBlogIndex(posts, allPosts, activeTag, searchQuery, filterType) {
             `<a href="blog.html?tag=${encodeURIComponent(tag)}" 
                 class="tag-link ${activeTag && tag.toLowerCase() === activeTag.toLowerCase() ? 'active' : ''}">${tag}</a>`
           ).join('')}
+          <div style="flex-grow: 1;"></div>
+          <a href="blog.html?tag=liked" 
+             class="tag-link ${isLikedActive ? 'active' : ''}" 
+             style="${hasLikedPosts ? '' : 'color: #555; border: 1px solid #333;'}">
+            <i class="fas fa-heart" style="margin-right: 4px;"></i>Liked
+          </a>
         </div>
       </div>
     </div>
@@ -204,6 +238,8 @@ function displayBlogIndex(posts, allPosts, activeTag, searchQuery, filterType) {
       message = `No posts found with the tag "${activeTag}".`;
     } else if (filterType === 'search') {
       message = `No posts found matching "${searchQuery}".`;
+    } else if (filterType === 'liked') {
+      message = 'You haven\'t liked any posts yet.';
     }
     
     container.innerHTML = searchHTML + `
@@ -220,6 +256,8 @@ function displayBlogIndex(posts, allPosts, activeTag, searchQuery, filterType) {
     resultsHeader = `<div class="search-results-header"><h2>Posts tagged with "${activeTag}"</h2></div>`;
   } else if (filterType === 'search') {
     resultsHeader = `<div class="search-results-header"><h2>Search results for "${searchQuery}"</h2></div>`;
+  } else if (filterType === 'liked') {
+    resultsHeader = `<div class="search-results-header"><h2>Posts you've liked</h2></div>`;
   }
   
   const featuredPost = posts[0]; // Most recent post is featured
@@ -465,14 +503,24 @@ function setupLikeDislikeSystem() {
           localStorage.removeItem(reactionKey);
           likeButton.classList.remove('active');
           
+          // Also remove from userReactions
+          removeUserReaction(postId);
+          
           // Update UI
           await updateReactionCount(postId, 0, 0);
+          
+          // If we're in the "liked" filter view, refresh to remove this post
+          refreshLikedFilterIfActive();
+          
           return;
         } 
         else if (currentReaction === 'dislike' && !isLike) {
           // Un-dislike - user clicked dislike again
           localStorage.removeItem(reactionKey);
           dislikeButton.classList.remove('active');
+          
+          // Also remove from userReactions
+          removeUserReaction(postId);
           
           // Update UI
           await updateReactionCount(postId, 0, 0);
@@ -483,29 +531,37 @@ function setupLikeDislikeSystem() {
           document.querySelector(`.post-reaction-like[data-post-id="${postId}"]`).classList.remove('active');
           dislikeButton.classList.add('active');
           localStorage.setItem(reactionKey, 'dislike');
+          
+          // Update userReactions
+          saveUserReactions(postId, 'dislike');
+          
+          // If we're in the "liked" filter view, refresh to remove this post
+          refreshLikedFilterIfActive();
         } 
         else if (currentReaction === 'dislike' && isLike) {
           // Change from dislike to like
           document.querySelector(`.post-reaction-dislike[data-post-id="${postId}"]`).classList.remove('active');
           likeButton.classList.add('active');
           localStorage.setItem(reactionKey, 'like');
+          
+          // Update userReactions
+          saveUserReactions(postId, 'like');
         }
       } else {
         // New reaction
         if (isLike) {
           likeButton.classList.add('active');
           localStorage.setItem(reactionKey, 'like');
+          saveUserReactions(postId, 'like');
         } else {
           dislikeButton.classList.add('active');
           localStorage.setItem(reactionKey, 'dislike');
+          saveUserReactions(postId, 'dislike');
         }
       }
       
       // Update JSON file and localStorage
       await updateReactionCount(postId, isLike ? 1 : 0, isLike ? 0 : 1);
-      
-      // Save user's personal reactions to localStorage
-      saveUserReactions(postId, isLike ? 'like' : 'dislike');
     }
   });
   
@@ -544,6 +600,31 @@ function setupLikeDislikeSystem() {
   
   // Initialize on page load
   initializeReactionButtons();
+}
+
+// Function to remove a user reaction
+function removeUserReaction(postId) {
+  // Get existing user reactions
+  let userReactions = JSON.parse(localStorage.getItem('userReactions') || '{}');
+  
+  // Remove the reaction for this post
+  if (userReactions[postId]) {
+    delete userReactions[postId];
+    
+    // Save back to localStorage
+    localStorage.setItem('userReactions', JSON.stringify(userReactions));
+  }
+}
+
+// Function to refresh the view if we're currently in the "liked" filter
+function refreshLikedFilterIfActive() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const currentTag = urlParams.get('tag');
+  
+  if (currentTag && currentTag.toLowerCase() === 'liked') {
+    // We're in the liked view, so refresh it
+    processView(null, 'liked', null);
+  }
 }
 
 // Function to save user's personal reactions
@@ -879,3 +960,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+
