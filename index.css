@@ -929,7 +929,7 @@ body.modal-open {
 }
 
 .mobile-menu-toggle:hover {
-    border-color: rgba(85, 139, 255, 0.4);
+    border-color: #558bff66;
 }
 
 .hamburger {
@@ -1035,9 +1035,9 @@ body.modal-open {
 .mobile-menu-logo {
     font-family: 'Lora', serif;
     font-size: 2rem;
-    color: #ffffff;
+    color: #ffffffb2;
     letter-spacing: 5px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .mobile-nav-links {
@@ -1045,10 +1045,11 @@ body.modal-open {
     flex-direction: column;
     gap: 25px;
     margin-bottom: 40px;
+    align-items: center;
 }
 
 .mobile-nav-links a {
-    color: #ffffff;
+    color: #ffffffc7;
     text-decoration: none;
     font-family: 'Fira Code', monospace;
     font-size: 1.2rem;
@@ -1056,6 +1057,10 @@ body.modal-open {
     letter-spacing: 1px;
     transition: color 0.3s ease, transform 0.3s ease;
     display: inline-block;
+    padding: 5px 10px 5px;
+    background-color: none;
+    border-radius: 5px;
+    border: 1px solid #558bff66;
 }
 
 .mobile-social-icons {
