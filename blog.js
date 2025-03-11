@@ -439,6 +439,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+
 // Function to handle likes and dislikes
 function setupLikeDislikeSystem() {
   // Handle clicks on like/dislike buttons
@@ -453,20 +454,6 @@ function setupLikeDislikeSystem() {
       const postId = button.getAttribute('data-post-id');
       const isLike = !!likeButton;
       
-      // Get current like/dislike counts
-      const likesElement = document.querySelector(`.post-likes[data-post-id="${postId}"]`);
-      const dislikesElement = document.querySelector(`.post-dislikes[data-post-id="${postId}"]`);
-      
-      if (!likesElement || !dislikesElement) return;
-      
-      // Parse as integers with fallback to 0 for non-numeric values
-      let likes = parseInt(likesElement.textContent) || 0;
-      let dislikes = parseInt(dislikesElement.textContent) || 0;
-      
-      // Ensure counts are never negative
-      likes = Math.max(0, likes);
-      dislikes = Math.max(0, dislikes);
-      
       // Check if user already reacted to this post
       const reactionKey = `post-reaction-${postId}`;
       const currentReaction = localStorage.getItem(reactionKey);
@@ -475,38 +462,30 @@ function setupLikeDislikeSystem() {
       if (currentReaction) {
         if (currentReaction === 'like' && isLike) {
           // Unlike - user clicked like again
-          if (likes > 0) likes--; // Prevent negative counts
           localStorage.removeItem(reactionKey);
           likeButton.classList.remove('active');
           
           // Update UI
-          likesElement.textContent = likes;
-          await updateReactionCount(postId, likes, dislikes);
+          await updateReactionCount(postId, 0, 0);
           return;
         } 
         else if (currentReaction === 'dislike' && !isLike) {
           // Un-dislike - user clicked dislike again
-          if (dislikes > 0) dislikes--; // Prevent negative counts
           localStorage.removeItem(reactionKey);
           dislikeButton.classList.remove('active');
           
           // Update UI
-          dislikesElement.textContent = dislikes;
-          await updateReactionCount(postId, likes, dislikes);
+          await updateReactionCount(postId, 0, 0);
           return;
         }
         else if (currentReaction === 'like' && !isLike) {
           // Change from like to dislike
-          if (likes > 0) likes--; // Prevent negative counts
-          dislikes++;
           document.querySelector(`.post-reaction-like[data-post-id="${postId}"]`).classList.remove('active');
           dislikeButton.classList.add('active');
           localStorage.setItem(reactionKey, 'dislike');
         } 
         else if (currentReaction === 'dislike' && isLike) {
           // Change from dislike to like
-          if (dislikes > 0) dislikes--; // Prevent negative counts
-          likes++;
           document.querySelector(`.post-reaction-dislike[data-post-id="${postId}"]`).classList.remove('active');
           likeButton.classList.add('active');
           localStorage.setItem(reactionKey, 'like');
@@ -514,29 +493,23 @@ function setupLikeDislikeSystem() {
       } else {
         // New reaction
         if (isLike) {
-          likes++;
           likeButton.classList.add('active');
           localStorage.setItem(reactionKey, 'like');
         } else {
-          dislikes++;
           dislikeButton.classList.add('active');
           localStorage.setItem(reactionKey, 'dislike');
         }
       }
       
-      // Update UI
-      likesElement.textContent = likes;
-      dislikesElement.textContent = dislikes;
-      
       // Update JSON file and localStorage
-      await updateReactionCount(postId, likes, dislikes);
+      await updateReactionCount(postId, isLike ? 1 : 0, isLike ? 0 : 1);
       
       // Save user's personal reactions to localStorage
       saveUserReactions(postId, isLike ? 'like' : 'dislike');
     }
   });
   
-  // Initialize buttons state based on localStorage and actual counts
+  // Initialize buttons state based on localStorage
   function initializeReactionButtons() {
     const reactionButtons = document.querySelectorAll('.post-reaction-like, .post-reaction-dislike');
     
@@ -545,38 +518,14 @@ function setupLikeDislikeSystem() {
       const reactionKey = `post-reaction-${postId}`;
       const currentReaction = localStorage.getItem(reactionKey);
       
-      // Get the current display counts
-      const likesElement = document.querySelector(`.post-likes[data-post-id="${postId}"]`);
-      const dislikesElement = document.querySelector(`.post-dislikes[data-post-id="${postId}"]`);
-      
-      if (!likesElement || !dislikesElement) return;
-      
-      const likes = parseInt(likesElement.textContent) || 0;
-      const dislikes = parseInt(dislikesElement.textContent) || 0;
-      
-      // Only show highlighted button if counts are greater than 0
       if (currentReaction) {
         const isLikeButton = button.classList.contains('post-reaction-like');
         
-        // Only highlight like button if there are actual likes
-        if (isLikeButton && currentReaction === 'like') {
-          if (likes > 0) {
-            button.classList.add('active');
-          } else {
-            // If likes are 0, remove highlight and localStorage entry
-            button.classList.remove('active');
-            localStorage.removeItem(reactionKey);
-          }
-        } 
-        // Only highlight dislike button if there are actual dislikes
-        else if (!isLikeButton && currentReaction === 'dislike') {
-          if (dislikes > 0) {
-            button.classList.add('active');
-          } else {
-            // If dislikes are 0, remove highlight and localStorage entry
-            button.classList.remove('active');
-            localStorage.removeItem(reactionKey);
-          }
+        if ((isLikeButton && currentReaction === 'like') || 
+            (!isLikeButton && currentReaction === 'dislike')) {
+          button.classList.add('active');
+        } else {
+          button.classList.remove('active');
         }
       }
     });
@@ -612,15 +561,11 @@ function saveUserReactions(postId, reaction) {
 // Function to update reaction count in local JSON file
 async function updateReactionCount(postId, likes, dislikes) {
   try {
-    // Make sure postId is valid and counts are non-negative
+    // Make sure postId is valid
     if (!postId) {
       console.error('Invalid postId');
       return;
     }
-    
-    // Ensure counts are non-negative
-    likes = Math.max(0, likes);
-    dislikes = Math.max(0, dislikes);
     
     // Save the reaction counts to a specific localStorage key
     localStorage.setItem(`post-reactions-${postId}`, JSON.stringify({ likes, dislikes }));
@@ -679,11 +624,29 @@ function updateCardViewReactions(postId, likes, dislikes) {
   const cardDislikes = document.querySelectorAll(`.card-reaction-indicator[data-post-id="${postId}"] .card-dislikes`);
   
   cardLikes.forEach(element => {
-    element.querySelector('span').textContent = likes;
+    // Remove the span with the count
+    const span = element.querySelector('span');
+    if (span) span.remove();
+    
+    // Add or remove active class based on likes value
+    if (likes > 0) {
+      element.classList.add('active');
+    } else {
+      element.classList.remove('active');
+    }
   });
   
   cardDislikes.forEach(element => {
-    element.querySelector('span').textContent = dislikes;
+    // Remove the span with the count
+    const span = element.querySelector('span');
+    if (span) span.remove();
+    
+    // Add or remove active class based on dislikes value
+    if (dislikes > 0) {
+      element.classList.add('active');
+    } else {
+      element.classList.remove('active');
+    }
   });
 }
 
@@ -697,26 +660,9 @@ function enhanceDisplaySinglePost(originalFunction) {
     const articleElement = document.querySelector('.blog-post-container article');
     if (!articleElement) return;
     
-    // Get the most up-to-date reaction counts from our local data
-    // Try to get from localStorage first
-    let currentLikes = 0;
-    let currentDislikes = 0;
-    
-    const storedReactions = localStorage.getItem(`post-reactions-${post.id}`);
-    if (storedReactions) {
-      try {
-        const parsed = JSON.parse(storedReactions);
-        currentLikes = Math.max(0, parsed.likes || 0);
-        currentDislikes = Math.max(0, parsed.dislikes || 0);
-      } catch (e) {
-        console.error('Error parsing stored reactions:', e);
-        currentLikes = Math.max(0, post.likes || 0);
-        currentDislikes = Math.max(0, post.dislikes || 0);
-      }
-    } else {
-      currentLikes = Math.max(0, post.likes || 0);
-      currentDislikes = Math.max(0, post.dislikes || 0);
-    }
+    // Get user's current reaction from localStorage
+    const reactionKey = `post-reaction-${post.id}`;
+    const currentReaction = localStorage.getItem(reactionKey);
     
     // Create reaction section
     const reactionSection = document.createElement('div');
@@ -724,13 +670,11 @@ function enhanceDisplaySinglePost(originalFunction) {
     reactionSection.innerHTML = `
       <div class="reaction-title">Did you like this post?</div>
       <div class="reaction-buttons">
-        <button class="post-reaction-like" data-post-id="${post.id}">
+        <button class="post-reaction-like ${currentReaction === 'like' ? 'active' : ''}" data-post-id="${post.id}">
           <i class="fas fa-thumbs-up"></i>
-          <span class="post-likes" data-post-id="${post.id}">${currentLikes}</span>
         </button>
-        <button class="post-reaction-dislike" data-post-id="${post.id}">
+        <button class="post-reaction-dislike ${currentReaction === 'dislike' ? 'active' : ''}" data-post-id="${post.id}">
           <i class="fas fa-thumbs-down"></i>
-          <span class="post-dislikes" data-post-id="${post.id}">${currentDislikes}</span>
         </button>
       </div>
     `;
@@ -742,83 +686,49 @@ function enhanceDisplaySinglePost(originalFunction) {
     } else {
       articleElement.appendChild(reactionSection);
     }
-    
-    // Initialize reaction buttons based on localStorage state and current counts
-    const reactionKey = `post-reaction-${post.id}`;
-    const currentReaction = localStorage.getItem(reactionKey);
-    
-    if (currentReaction) {
-      // Only highlight if counts are greater than 0
-      if (currentReaction === 'like' && currentLikes > 0) {
-        const likeButton = reactionSection.querySelector('.post-reaction-like');
-        if (likeButton) likeButton.classList.add('active');
-      } else if (currentReaction === 'dislike' && currentDislikes > 0) {
-        const dislikeButton = reactionSection.querySelector('.post-reaction-dislike');
-        if (dislikeButton) dislikeButton.classList.add('active');
-      } else if (currentLikes === 0 && currentDislikes === 0) {
-        // If both counts are 0, remove the localStorage entry
-        localStorage.removeItem(reactionKey);
-      }
-    }
   };
 }
 
-// Function to enhance displayBlogIndex to add reaction counts to cards
+// Function to enhance displayBlogIndex to add reaction indicators to cards
 function enhanceDisplayBlogIndex(originalFunction) {
   return function(posts, allPosts, activeTag, searchQuery, filterType) {
     // Call the original function first
     originalFunction(posts, allPosts, activeTag, searchQuery, filterType);
     
-    // Now add reaction counts to all cards
+    // Now add reaction indicators to all cards
     const featuredPost = document.querySelector('.featured-post');
     const postCards = document.querySelectorAll('.post-card');
     
     // Add to featured post if it exists
     if (featuredPost && posts.length > 0) {
-      addReactionCountToCard(featuredPost, posts[0]);
+      addReactionIndicatorToCard(featuredPost, posts[0]);
     }
     
     // Add to all other post cards
     postCards.forEach((card, index) => {
       if (posts.length > index + 1) { // +1 because first post is featured
-        addReactionCountToCard(card, posts[index + 1]);
+        addReactionIndicatorToCard(card, posts[index + 1]);
       }
     });
   };
 }
 
-// Helper function to add reaction counts to a card
-function addReactionCountToCard(cardElement, post) {
-  // Try to get reaction counts from localStorage first
-  let likes = 0;
-  let dislikes = 0;
-  
-  const storedReactions = localStorage.getItem(`post-reactions-${post.id}`);
-  if (storedReactions) {
-    try {
-      const parsed = JSON.parse(storedReactions);
-      likes = Math.max(0, parsed.likes || 0);
-      dislikes = Math.max(0, parsed.dislikes || 0);
-    } catch (e) {
-      console.error('Error parsing stored reactions:', e);
-      likes = Math.max(0, post.likes || 0);
-      dislikes = Math.max(0, post.dislikes || 0);
-    }
-  } else {
-    likes = Math.max(0, post.likes || 0);
-    dislikes = Math.max(0, post.dislikes || 0);
-  }
+// Helper function to add reaction indicators to a card
+function addReactionIndicatorToCard(cardElement, post) {
+  // Get user's current reaction from localStorage
+  const reactionKey = `post-reaction-${post.id}`;
+  const currentReaction = localStorage.getItem(reactionKey);
   
   // Create reaction indicator element
   const reactionIndicator = document.createElement('div');
   reactionIndicator.className = 'card-reaction-indicator';
   reactionIndicator.setAttribute('data-post-id', post.id);
   reactionIndicator.innerHTML = `
-    <span class="card-likes" title="Likes">
-      <i class="fas fa-thumbs-up"></i> <span>${likes}</span>
+    <span class="card-likes ${currentReaction === 'like' ? 'active' : ''}" title="You liked this post">
+      <i class="fas fa-thumbs-up"></i>
     </span>
-    <span class="card-dislikes" title="Dislikes">
-      <i class="fas fa-thumbs-down"></i> <span>${dislikes}</span>
+    <span class="card-dislikes ${currentReaction === 'dislike' ? 'active' : ''}" title="You disliked this post">
+      <i class="fas fa-thumbs-down"></i>
     </span>
   `;
   
@@ -826,7 +736,7 @@ function addReactionCountToCard(cardElement, post) {
   cardElement.appendChild(reactionIndicator);
 }
 
-// Function to load blog data with proper reaction counts
+// Function to load blog data with proper reaction information
 function loadBlogData() {
   // Get query parameters
   const urlParams = new URLSearchParams(window.location.search);
@@ -839,23 +749,6 @@ function loadBlogData() {
   if (storedData) {
     try {
       window.allPostsData = JSON.parse(storedData);
-      
-      // Update with any stored reaction counts
-      if (window.allPostsData && window.allPostsData.posts) {
-        window.allPostsData.posts.forEach(post => {
-          const storedReactions = localStorage.getItem(`post-reactions-${post.id}`);
-          if (storedReactions) {
-            try {
-              const parsed = JSON.parse(storedReactions);
-              post.likes = Math.max(0, parsed.likes || 0);
-              post.dislikes = Math.max(0, parsed.dislikes || 0);
-            } catch (e) {
-              console.error('Error parsing stored reactions:', e);
-            }
-          }
-        });
-      }
-      
       processView(postId, searchTag, searchQuery);
       return;
     } catch (e) {
@@ -871,23 +764,7 @@ function loadBlogData() {
       // Store posts data globally
       window.allPostsData = data;
       
-      // Apply any reactions stored in localStorage
-      if (window.allPostsData && window.allPostsData.posts) {
-        window.allPostsData.posts.forEach(post => {
-          const storedReactions = localStorage.getItem(`post-reactions-${post.id}`);
-          if (storedReactions) {
-            try {
-              const parsed = JSON.parse(storedReactions);
-              post.likes = Math.max(0, parsed.likes || 0);
-              post.dislikes = Math.max(0, parsed.dislikes || 0);
-            } catch (e) {
-              console.error('Error parsing stored reactions:', e);
-            }
-          }
-        });
-      }
-      
-      // Save the combined data to localStorage
+      // Save the data to localStorage
       localStorage.setItem('blogPostsData', JSON.stringify(window.allPostsData));
       
       // Process the view
@@ -901,23 +778,6 @@ function loadBlogData() {
       if (fallbackData) {
         try {
           window.allPostsData = JSON.parse(fallbackData);
-          
-          // Make sure to update with any stored reaction counts
-          if (window.allPostsData && window.allPostsData.posts) {
-            window.allPostsData.posts.forEach(post => {
-              const storedReactions = localStorage.getItem(`post-reactions-${post.id}`);
-              if (storedReactions) {
-                try {
-                  const parsed = JSON.parse(storedReactions);
-                  post.likes = Math.max(0, parsed.likes || 0);
-                  post.dislikes = Math.max(0, parsed.dislikes || 0);
-                } catch (e) {
-                  console.error('Error parsing stored reactions:', e);
-                }
-              }
-            });
-          }
-          
           processView(postId, searchTag, searchQuery);
         } catch (e) {
           console.error('Error using fallback data:', e);
@@ -926,8 +786,64 @@ function loadBlogData() {
     });
 }
 
+// Add CSS styles for the active state (white thumbs)
+function addReactionStyles() {
+  const styleSheet = document.createElement("style");
+  styleSheet.textContent = `
+    /* Style for active thumbs in post view */
+    .post-reaction-like.active i,
+    .post-reaction-dislike.active i {
+      color: white;
+    }
+    
+    /* Style for active thumbs in card view */
+    .card-likes.active i,
+    .card-dislikes.active i {
+      color: white;
+    }
+    
+    /* Optional: add background color for active buttons */
+    .post-reaction-like.active {
+      background-color: #28a745;
+    }
+    
+    .post-reaction-dislike.active {
+      background-color: #dc3545;
+    }
+    
+    /* Make card reaction indicators more visible */
+    .card-reaction-indicator {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .card-likes, .card-dislikes {
+      padding: 5px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .card-likes.active {
+      background-color: none;
+    }
+    
+    .card-dislikes.active {
+      background-color: none;
+    }
+  `;
+  document.head.appendChild(styleSheet);
+}
+
 // Replace original functions with enhanced versions
 document.addEventListener('DOMContentLoaded', function() {
+  // Add custom styles
+  addReactionStyles();
+  
   // Store original functions
   const originalDisplaySinglePost = window.displaySinglePost;
   const originalDisplayBlogIndex = window.displayBlogIndex;
