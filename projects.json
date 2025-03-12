@@ -5,11 +5,25 @@
         {
             "id": "portfolio-project",
             "title": "Portfolio Website",
-            "shortDescription": "The very site you're on right now!",
+            "shortDescription": "A website to catalog my projects. It's The very site you're on right now!",
             "description": "A nice sleek website I made to display my projects and to blog about my thoughts. It is completely made in vanilla html,css,and js. Yeah, not much else to say.",
             "demoLink": "https://minazaky.com",
             "githubLink": "https://github.com/lordjumper/myamazingportfolio",
             "technologies": ["HTML", "CSS", "JavaScript"],
+            "images": [
+                "https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvmX8NMDKrYEXypnfb9LW56kuBr4FRMzVqKlJs",
+                "https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvxGFgOZ7EzTdHse1NuiSfqjlUBtX5ovQ8WkDR"
+            ],
+            "featured": true
+        },
+        {
+            "id": "portfolio-project",
+            "title": "C# Console Dungeon Crawler",
+            "shortDescription": "A simple text-based dungeon crawler game.",
+            "description": "A C# project I made for class as well as to learn the language. It as attacking, defending and running mechanics as well as a shop and stats system. I had lots of fun making and its helped me expand my knowledge of C#.",
+            "demoLink": "404.html",
+            "githubLink": "https://github.com/lordjumper/Dungeon-Crawler/",
+            "technologies": ["C#"],
             "images": [
                 "https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvmX8NMDKrYEXypnfb9LW56kuBr4FRMzVqKlJs",
                 "https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvxGFgOZ7EzTdHse1NuiSfqjlUBtX5ovQ8WkDR"
