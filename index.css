@@ -1536,7 +1536,7 @@ section {
     top: 0;
     left: 0;
     right: 0;
-    height: 90px; 
+    height: 85px; 
     z-index: 0; /* Just below the navbar */
 }
 
