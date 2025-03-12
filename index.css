@@ -655,8 +655,8 @@ footer p {
 .typed-text-container {
     font-family: 'Fira Code', monospace;
     max-width: 600px;
-    margin-bottom: 2rem;
-    margin-top: 15px;
+    margin-bottom: 3rem;
+    margin-top: 5px;
     font-size: 1rem;
     line-height: 1.8;
     color: #a0a0a000;
