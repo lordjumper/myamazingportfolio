@@ -1164,7 +1164,7 @@ body.modal-open {
 }
 
 .mobile-menu-toggle:hover {
-    border-color: #558bff66;
+    border-color: #558bff;
 }
 
 .hamburger {
@@ -1284,18 +1284,16 @@ body.modal-open {
 }
 
 .mobile-nav-links a {
-    color: #ffffffc7;
-    text-decoration: none;
-    font-family: 'Fira Code', monospace;
-    font-size: 1.2rem;
-    text-transform: lowercase;
-    letter-spacing: 1px;
-    transition: color 0.3s ease, transform 0.3s ease;
     display: inline-block;
-    padding: 5px 10px 5px;
-    background-color: none;
-    border-radius: 5px;
-    border: 1px solid #558bff66;
+    color: #558bff;
+    background-color: transparent;
+    border: 1px solid #558bff;
+    border-radius: 3px;
+    padding: 10px 20px;
+    font-family: 'Fira Code', monospace;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .mobile-social-icons {
