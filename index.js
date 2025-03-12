@@ -1,4 +1,18 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize scroll down arrow
+    const scrollDownArrow = document.querySelector('.scroll-down-arrow');
+    if (scrollDownArrow) {
+        scrollDownArrow.addEventListener('click', function() {
+            const aboutSection = document.querySelector('#about');
+            if (aboutSection) {
+                aboutSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    }
+
     // Add navbar scroll behavior
     initializeNavbarBehavior();
 
