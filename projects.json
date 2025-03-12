@@ -17,7 +17,7 @@
             "featured": true
         },
         {
-            "id": "portfolio-project",
+            "id": "dungeon-crawler",
             "title": "C# Console Dungeon Crawler",
             "shortDescription": "A simple text-based dungeon crawler game.",
             "description": "A C# project I made for class as well as to learn the language. It as attacking, defending and running mechanics as well as a shop and stats system. I had lots of fun making and its helped me expand my knowledge of C#.",
@@ -25,8 +25,8 @@
             "githubLink": "https://github.com/lordjumper/Dungeon-Crawler/",
             "technologies": ["C#"],
             "images": [
-                "https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvmX8NMDKrYEXypnfb9LW56kuBr4FRMzVqKlJs",
-                "https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvxGFgOZ7EzTdHse1NuiSfqjlUBtX5ovQ8WkDR"
+                "https://acxt642gke.ufs.sh/f/Zb7b7YjNj6Mv0pO2ukTMTxhiLJIojfSqPymkbZz3KHNt6g1Y",
+                "https://acxt642gke.ufs.sh/f/Zb7b7YjNj6Mvh47xKdbVncs9D37F0XwSajNgdGfHJ8uxbMp2"
             ],
             "featured": true
         }
