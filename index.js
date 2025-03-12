@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize typing effect
+    initializeTypingEffect();
+    
     // Initialize scroll down arrow
     const scrollDownArrow = document.querySelector('.scroll-down-arrow');
     if (scrollDownArrow) {
@@ -12,6 +15,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Add enhanced social icon interactions
+    initializeSocialIcons();
 
     // Add navbar scroll behavior
     initializeNavbarBehavior();
@@ -420,5 +426,115 @@ document.addEventListener('DOMContentLoaded', function() {
                 mobileMenuToggle.classList.remove('active');
             }
         });
+    }
+    
+    // Typing effect for the header text
+    function initializeTypingEffect() {
+        const text = "I'm just a guy that enjoys making cool stuff.";
+        const typedTextElement = document.getElementById('typed-text');
+        const cursor = document.querySelector('.cursor');
+        
+        if (!typedTextElement) return;
+        
+        let charIndex = 0;
+        let isDeleting = false;
+        let pauseEnd = false;
+        
+        function typeEffect() {
+            const currentText = text.substring(0, charIndex);
+            typedTextElement.textContent = currentText;
+            
+            if (!isDeleting && charIndex < text.length) {
+                // Typing forward
+                charIndex++;
+                // Random typing speed to make it look more natural
+                const speed = Math.random() * 100 + 50;
+                setTimeout(typeEffect, speed);
+            } else if (!isDeleting && charIndex === text.length) {
+                // Reached the end of text, pause before starting to delete
+                isDeleting = false;
+                pauseEnd = true;
+                setTimeout(typeEffect, 2000); // Pause at the end
+            } else if (isDeleting && charIndex > 0) {
+                // Deleting
+                charIndex--;
+                const speed = Math.random() * 50 + 30;
+                setTimeout(typeEffect, speed);
+            } else if (isDeleting && charIndex === 0) {
+                // Finished deleting, start typing again
+                isDeleting = false;
+                setTimeout(typeEffect, 500); // Pause before starting again
+            } else if (pauseEnd) {
+                // After pause, decide if we want to delete and retype
+                // Let's have a 25% chance to delete and retype for variety
+                if (Math.random() < 0.25) {
+                    isDeleting = true;
+                    pauseEnd = false;
+                }
+                setTimeout(typeEffect, 2000); // Keep checking periodically
+            }
+        }
+        
+        // Start the typing effect after a short delay
+        setTimeout(typeEffect, 1000);
+        
+        // Make sure the cursor keeps blinking independently
+        setInterval(() => {
+            cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+        }, 500);
+    }
+
+    // Social icons enhancements
+    function initializeSocialIcons() {
+        const socialIcons = document.querySelectorAll('.social-icons a');
+        
+        // Add hover sound effect (subtle)
+        socialIcons.forEach(icon => {
+            icon.addEventListener('mouseenter', () => {
+                // Optional: create a subtle hover sound if you want
+                // const hoverSound = new Audio('hover.mp3');
+                // hoverSound.volume = 0.1;
+                // hoverSound.play();
+                
+                // Add pulse effect on hover
+                icon.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    icon.style.transform = '';
+                }, 300);
+            });
+            
+            // Add click effect for mobile
+            icon.addEventListener('touchstart', function(e) {
+                e.target.classList.add('touch-effect');
+                setTimeout(() => {
+                    e.target.classList.remove('touch-effect');
+                }, 300);
+            }, { passive: true });
+        });
+        
+        // Fix for mobile orientation changes
+        window.addEventListener('orientationchange', function() {
+            // Add slight delay to allow for DOM changes
+            setTimeout(adjustLayout, 300);
+        });
+        
+        // Initial layout adjustment
+        adjustLayout();
+    }
+    
+    // Function to adjust layout based on screen orientation
+    function adjustLayout() {
+        const isLandscape = window.innerWidth > window.innerHeight;
+        const header = document.querySelector('.header');
+        const scrollArrow = document.querySelector('.scroll-down-arrow');
+        
+        if (isLandscape && window.innerHeight < 500) {
+            // Extra space for landscape on small screens
+            header.style.paddingBottom = '100px';
+            if (scrollArrow) scrollArrow.style.bottom = '20px';
+        } else {
+            header.style.paddingBottom = '';
+            if (scrollArrow) scrollArrow.style.bottom = '';
+        }
     }
 });

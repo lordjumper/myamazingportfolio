@@ -199,55 +199,185 @@
             color: #558bff;
         }
         
-        /* Section styles */
-        section {
-            padding: 100px 0;
-            scroll-margin-top: 100px; /* Ensures sections are properly scrolled to below the fixed navbar */
-        }
-        
-        section h2 {
-            font-family: 'Fira Code', monospace;
-            font-size: 2rem;
-            margin-bottom: 3rem;
-            color: #ffffff;
-            position: relative;
-            display: inline-block;
-        }
-        
-        section h2:after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background-color: #558bff;
-        }
-        
-        section p {
-            font-family: 'Fira Code', monospace;
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-            color: #b0b0b0;
-            line-height: 1.8;
-        }
-        
-        /* Projects section */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            align-items: center;
-            margin-bottom: 30px;
-        }
+        /* Enhanced Social Icons with Animation - Fixed */
+.social-icons {
+    display: flex;
+    gap: 25px;
+    margin-top: 30px;
+    justify-content: center; /* Ensure icons are centered */
+}
 
-        @media (max-width:940px) {
-            .projects-grid{
-                grid-template-columns: repeat(1, 1fr);
-            }
-        }
+.social-icons a {
+    color: #9e9e9e;
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none; /* Remove underline */
+}
 
-        
+.social-icons a:hover {
+    color: #558bff;
+    transform: translateY(-5px);
+}
+
+/* Fixed animation for all icons with proper selector syntax */
+.social-icons a:nth-child(1) {
+    animation: iconFloat 3s ease-in-out infinite 0.1s, iconAppear 0.6s ease-out 0.1s forwards;
+    opacity: 0;
+}
+
+.social-icons a:nth-child(2) {
+    animation: iconFloat 3s ease-in-out infinite 0.3s, iconAppear 0.6s ease-out 0.2s forwards;
+    opacity: 0;
+}
+
+.social-icons a:nth-child(3) {
+    animation: iconFloat 3s ease-in-out infinite 0.5s, iconAppear 0.6s ease-out 0.3s forwards;
+    opacity: 0;
+}
+
+.social-icons a:nth-child(4) {
+    animation: iconFloat 3s ease-in-out infinite 0.7s, iconAppear 0.6s ease-out 0.4s forwards;
+    opacity: 0;
+}
+
+@keyframes iconFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes iconAppear {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Add ripple effect to icons on click */
+.social-icons a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(85, 139, 255, 0.8) 0%, rgba(85, 139, 255, 0) 70%);
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(0);
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    z-index: -1;
+}
+
+.social-icons a:active::after {
+    transform: scale(2.5);
+    opacity: 0.3;
+}
+
+/* Fix for header and alignment issues on mobile/landscape */
+@media (max-width: 768px) or (orientation: landscape) {
+    .header {
+        padding: 0 20px;
+        height: auto;
+        min-height: 100vh;
+        justify-content: center;
+    }
+
+    .typed-text-container {
+        font-size: 0.9rem;
+        max-width: 100%;
+        text-align: center;
+        width: 100%;
+    }
+    
+    .social-icons {
+        gap: 20px;
+        margin-top: 25px;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .scroll-down-arrow {
+        position: absolute;
+        bottom: 50px; /* Adjust for smaller screens */
+        left: 50%;
+        transform: translateX(-50%);
+        width: auto;
+    }
+}
+
+/* Even more specific fixes for landscape orientation */
+@media (max-height: 500px) and (orientation: landscape) {
+    .header {
+        padding: 80px 20px 100px;
+    }
+    
+    .scroll-down-arrow {
+        bottom: 20px;
+    }
+    
+    .social-icons {
+        margin-top: 15px;
+    }
+}
+
+/* Section styles */
+section {
+    padding: 100px 0;
+    scroll-margin-top: 100px; /* Ensures sections are properly scrolled to below the fixed navbar */
+}
+
+section h2 {
+    font-family: 'Fira Code', monospace;
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    color: #ffffff;
+    position: relative;
+    display: inline-block;
+}
+
+section h2:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background-color: #558bff;
+}
+
+section p {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    color: #b0b0b0;
+    line-height: 1.8;
+}
+
+/* Projects section */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+@media (max-width:940px) {
+    .projects-grid{
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
 /* Blue light pulsing effect for project cards */
 @keyframes bluePulse {
     0% {
@@ -293,112 +423,112 @@
 .project-card:hover::before {
     opacity: 1;
 }
-        
-        .project-links {
-            display: flex;
-            gap: 20px;
-        }
-        
-        .project-links a {
-            color: #558bff;
-            text-decoration: none;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .project-links a i {
-            font-size: 1rem;
-        }
-        
-        /* About section */
-        .about-content {
-            display: grid;
-            grid-template-columns: 3fr 2fr;
-            gap: 50px;
-        }
-        
-        .skills-list {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            list-style-type: none;
-        }
-        
-        .skills-list li {
-            margin-bottom: 10px;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.9rem;
-            color: #b0b0b0;
-            display: flex;
-            align-items: center;
-        }
-        
-        .skills-list li:before {
-            content: '▹';
-            color: #558bff;
-            margin-right: 10px;
-            font-size: 0.8rem;
-        }
-        
-        /* Resume section */
-        .resume-button {
-            display: inline-block;
-            color: #558bff;
-            background-color: transparent;
-            border: 1px solid #558bff;
-            border-radius: 3px;
-            padding: 6px 12px;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.9rem;
-            text-decoration: none;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        
-        .resume-button:hover {
-            background-color: #558bff1c;
-        }
-        
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 50px 0 30px;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.9rem;
-            color: #888;
-        }
-        
-        footer p {
-            margin-bottom: 10px;
-        }
-        
-        /* For mobile responsiveness */
-        @media (max-width: 768px) {
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .name {
-                font-size: 2.5rem;
-            }
-            
-            .navbar {
-                flex-direction: column;
-                gap: 15px;
-                padding: 15px;
-            }
-            
-            .nav-links, .nav-right {
-                justify-content: center;
-                width: 100%;
-            }
-            
-            .skills-list {
-                grid-template-columns: 1fr;
-            }
-        }
 
-        /* Custom Scrollbar */
+.project-links {
+    display: flex;
+    gap: 20px;
+}
+
+.project-links a {
+    color: #558bff;
+    text-decoration: none;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.project-links a i {
+    font-size: 1rem;
+}
+
+/* About section */
+.about-content {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 50px;
+}
+
+.skills-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    list-style-type: none;
+}
+
+.skills-list li {
+    margin-bottom: 10px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    color: #b0b0b0;
+    display: flex;
+    align-items: center;
+}
+
+.skills-list li:before {
+    content: '▹';
+    color: #558bff;
+    margin-right: 10px;
+    font-size: 0.8rem;
+}
+
+/* Resume section */
+.resume-button {
+    display: inline-block;
+    color: #558bff;
+    background-color: transparent;
+    border: 1px solid #558bff;
+    border-radius: 3px;
+    padding: 6px 12px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.resume-button:hover {
+    background-color: #558bff1c;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 50px 0 30px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+footer p {
+    margin-bottom: 10px;
+}
+
+/* For mobile responsiveness */
+@media (max-width: 768px) {
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .name {
+        font-size: 2.5rem;
+    }
+    
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    .nav-links, .nav-right {
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .skills-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 0px;
 }
@@ -450,9 +580,59 @@
     }
 }
 
+/* Enhanced Navbar Animation */
+@keyframes navbarEntrance {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+        filter: blur(5px);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translateY(-10px) scale(0.98);
+        filter: blur(2px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* Replace the existing navExpand animation with our new animation */
 .navbar {
-    animation: navExpand 0.6s ease-out forwards;
+    animation: navbarEntrance 0.8s cubic-bezier(0.17, 0.89, 0.32, 1.25) forwards;
     transform-origin: center top;
+}
+
+/* Enhance nav links animation with staggered delay */
+.nav-links a:nth-child(1),
+.nav-right a:nth-child(1) {
+    animation: fadeIn 0.5s ease-out 0.2s forwards;
+    opacity: 0;
+}
+
+.nav-links a:nth-child(2),
+.nav-right a:nth-child(2) {
+    animation: fadeIn 0.5s ease-out 0.3s forwards;
+    opacity: 0;
+}
+
+.nav-links a:nth-child(3),
+.nav-right a:nth-child(3) {
+    animation: fadeIn 0.5s ease-out 0.4s forwards;
+    opacity: 0;
+}
+
+.nav-links a:nth-child(4),
+.nav-right a:nth-child(4) {
+    animation: fadeIn 0.5s ease-out 0.5s forwards;
+    opacity: 0;
+}
+
+.logo {
+    animation: fadeIn 0.5s ease-out 0.6s forwards;
+    opacity: 0;
 }
 
 /* Animate the nav links to fade in slightly after the navbar expands */
@@ -471,6 +651,60 @@
     opacity: 0;
 }
 
+/* Typed Text Animation */
+.typed-text-container {
+    font-family: 'Fira Code', monospace;
+    max-width: 600px;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #a0a0a000;
+    position: relative;
+    display: inline-block;
+}
+
+#typed-text {
+    display: inline;
+    background: linear-gradient(to right, #558bff, #a0a0a0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 5px rgba(85, 139, 255, 0.2);
+}
+
+/* Update cursor styles to ensure only one cursor displays */
+.cursor {
+    display: inline-block;
+    width: 3px;
+    height: 1.2em; /* Match the height to text */
+    margin-left: 2px;
+    background-color: #558bff;
+    animation: blink 1s infinite;
+    vertical-align: middle;
+    position: relative;
+    top: -1px; /* Slight adjustment for alignment */
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Remove any conflicting styles that might cause duplicate cursors */
+.description {
+    display: none; /* Hide the original description element */
+}
+
+@media (max-width: 768px) {
+    .typed-text-container {
+        font-size: 0.9rem;
+        max-width: 100%;
+    }
+}
 
 /* Modal Styles */
 .modal-overlay {
@@ -1072,6 +1306,7 @@ body.modal-open {
     color: #9e9e9e;
     font-size: 1.3rem;
     transition: color 0.3s ease, transform 0.3s ease;
+    text-decoration: none; /* Remove underline */
 }
 
 
@@ -1191,7 +1426,6 @@ section {
     pointer-events: auto;
 }
 
-
 /* Hover area to trigger navbar */
 .navbar-hover-area {
     position: fixed;
@@ -1217,6 +1451,9 @@ section {
     align-items: center;
     animation: bounce 2s infinite;
     z-index: 5;
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Offset by half width for perfect centering */
+    width: auto;
 }
 
 .scroll-down-arrow i {
