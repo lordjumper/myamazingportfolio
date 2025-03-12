@@ -47,26 +47,26 @@
     backdrop-filter: blur(5px);
     border-radius: 5px;
     border: 1px solid #353535;
-    padding: 15px 25px;
+    padding: 12px 20px; 
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 15px rgb(0, 0, 0);
-    max-width: 1000px;
+    max-width: 600px; 
     margin: 0 auto;
 }
 
 .nav-links {
     display: flex;
-    gap: 30px;
-    margin-right: 30px;
+    gap: 25px; 
+    margin-right: 25px; 
     white-space: nowrap;
 }
 
 .nav-right {
     display: flex;
-    gap: 30px;
-    margin-left: 30px;
+    gap: 25px; 
+    margin-left: 25px; 
     white-space: nowrap;
 }
 
@@ -450,26 +450,129 @@ section p {
     gap: 50px;
 }
 
-.skills-list {
+/* Skills container styling */
+.skills-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.skills-container h3 {
+    font-family: 'Fira Code', monospace;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+    position: relative;
+    display: inline-block;
+}
+
+.skills-container h3:after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background-color: #558bff;
+}
+
+/* Skills grid layout */
+.skills-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    list-style-type: none;
+    gap: 15px;
 }
 
-.skills-list li {
-    margin-bottom: 10px;
-    font-family: 'Fira Code', monospace;
-    font-size: 0.9rem;
-    color: #b0b0b0;
+/* Skill card styling */
+.skill-card {
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    padding: 12px 15px;
     display: flex;
     align-items: center;
+    gap: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
 }
 
-.skills-list li:before {
-    content: '▹';
+.skill-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.2);
+    border-color: rgba(85, 139, 255, 0.3);
+    background-color: #252525;
+}
+
+.skill-card i {
+    font-size: 1.4rem;
     color: #558bff;
-    margin-right: 10px;
-    font-size: 0.8rem;
+    width: 28px;
+    text-align: center;
+}
+
+/* Custom TypeScript icon - since fa-ts is not standard */
+.fa-ts::before {
+    content: "TS";
+    font-style: normal;
+    font-weight: bold;
+    font-size: 0.9rem;
+    font-family: 'Fira Code', monospace;
+}
+
+/* Custom C++ icon - since fa-plus-plus is not standard */
+.fa-plus-plus::before {
+    content: "C++";
+    font-style: normal;
+    font-weight: bold;
+    font-size: 0.9rem;
+    font-family: 'Fira Code', monospace;
+}
+
+/* Skill card animation */
+@keyframes skillCardAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.skill-card {
+    animation: skillCardAppear 0.5s ease-out forwards;
+    opacity: 0;
+}
+
+.skill-card:nth-child(1) { animation-delay: 0.1s; }
+.skill-card:nth-child(2) { animation-delay: 0.2s; }
+.skill-card:nth-child(3) { animation-delay: 0.3s; }
+.skill-card:nth-child(4) { animation-delay: 0.4s; }
+.skill-card:nth-child(5) { animation-delay: 0.5s; }
+.skill-card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Mobile responsiveness for skill cards */
+@media (max-width: 768px) {
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .skill-card {
+        padding: 10px 12px;
+    }
+    
+    .skill-card i {
+        font-size: 1.2rem;
+    }
 }
 
 /* Resume section */
