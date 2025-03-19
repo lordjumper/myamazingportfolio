@@ -6,7 +6,7 @@
       "date": "March 10, 2025",
       "excerpt": "The concept of my upcoming game and a overview of my vision for it...",
       "content": "<p>Here's the break down:</p>\n<p>- A Hack and slash Ultra Kill inspired game made in Godot Engine using GDscript</p>\n<p>- 2 Active weapons, right hand holds some sort of melee weapon and left hand holds some sort of magic item that gives you a magic ability. You discover new weapons and magic items throughout the game.</p>\n<p>- Passive items will be various items that you collect through out the game that provide various buffs. Similar to how risk of rain 2 displays the items on your character these various items will be embedded into your hands and you'll be able to see them in or on your hand. For example a cursed eye object could go right in the palm of your left hand embedded into the skin. When the passive of that item is active the eye could be open and when it isn't the eye closes to provide some visual feedback for the various passives that will go on your hands and arms.</p>\n <p>Refer to rough img sketch below. (I know my art isn't great)</p><img src='https://acxt642gke.ufs.sh/f/Zb7b7YjNj6MvGQfzsc8mjbgq8IvBPOdei1YVuytzl4pQA03H'></img><p>I'll update this page with more info and lore wise stuff once I come up with one but thats the general premise I have so far.</p>",
-      "tags": ["Devlog", "Unity"]
+      "tags": ["Devlog", "Godot"]
     },
     {
       "id": "The Death of My Motivation",
