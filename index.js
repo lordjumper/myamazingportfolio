@@ -538,3 +538,245 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
+// Cookie Consent Handler - Simplified
+document.addEventListener('DOMContentLoaded', function() {
+    // Create a style element for animations
+    const style = document.createElement('style');
+    style.textContent = `
+        #cookie-consent.slide-down {
+            animation: slideDown 0.5s ease-out forwards;
+        }
+        
+        #cookie-consent.fade-down {
+            animation: fadeDown 0.5s ease-out forwards;
+        }
+        
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeDown {
+            from {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Get the cookie consent element
+    const cookieConsent = document.getElementById('cookie-consent');
+    
+    // If element doesn't exist, return early
+    if (!cookieConsent) {
+        console.error('Cookie consent element not found');
+        return;
+    }
+    
+    const acceptButton = document.getElementById('accept-cookies');
+    const denyButton = document.getElementById('deny-cookies');
+    
+    // Check if user has already made a choice - run immediately on page load
+    const cookieChoice = localStorage.getItem('cookieConsent');
+    
+    // Immediately show or hide based on previous choice
+    if (cookieChoice === null) {
+        // User hasn't decided yet, show the popup
+        cookieConsent.classList.remove('fade-down');
+        cookieConsent.classList.add('show');
+        cookieConsent.classList.add('slide-down');
+        cookieConsent.style.display = '';  // Use default display
+    } else {
+        // User already decided, keep it hidden
+        cookieConsent.classList.remove('show');
+        cookieConsent.classList.remove('slide-down');
+        cookieConsent.style.display = 'none';
+    }
+    
+    // Handle accept button click
+    acceptButton.addEventListener('click', function() {
+        localStorage.setItem('cookieConsent', 'accepted');
+        
+        // Add fade-down animation before removing
+        cookieConsent.classList.remove('slide-down');
+        cookieConsent.classList.add('fade-down');
+        
+        // Remove after animation completes
+        setTimeout(() => {
+            cookieConsent.classList.remove('show');
+            cookieConsent.classList.remove('fade-down');
+            cookieConsent.style.display = 'none';
+        }, 500);
+        
+        // Migrate any session-based data to persistent storage
+        migrateTemporaryData();
+    });
+    
+    // Handle deny button click
+    denyButton.addEventListener('click', function() {
+        localStorage.setItem('cookieConsent', 'denied');
+        
+        // Add fade-down animation before removing
+        cookieConsent.classList.remove('slide-down');
+        cookieConsent.classList.add('fade-down');
+        
+        // Remove after animation completes
+        setTimeout(() => {
+            cookieConsent.classList.remove('show');
+            cookieConsent.classList.remove('fade-down');
+            cookieConsent.style.display = 'none';
+        }, 500);
+        
+        // Clear any existing cookies
+        clearAllCookies();
+    });
+});
+
+// Clear all cookies if user denies consent
+function clearAllCookies() {
+    const cookies = document.cookie.split(";");
+    
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i];
+        const eqPos = cookie.indexOf("=");
+        const name = eqPos > -1 ? cookie.substr(0, eqPos).trim() : cookie.trim();
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+    }
+}
+
+// Migrate temporary session data to persistent storage if consent was given
+function migrateTemporaryData() {
+    // Check if we have temporary liked posts in sessionStorage
+    const tempLikedPosts = sessionStorage.getItem('tempLikedPosts');
+    if (tempLikedPosts) {
+        // Move to permanent storage
+        saveToCookiesOrStorage('likedPosts', tempLikedPosts);
+        // Clear temporary storage
+        sessionStorage.removeItem('tempLikedPosts');
+    }
+}
+
+// Get value from cookies
+function getCookieValue(key) {
+    const name = key + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const cookieArray = decodedCookie.split(';');
+    
+    for (let i = 0; i < cookieArray.length; i++) {
+        let cookie = cookieArray[i].trim();
+        if (cookie.indexOf(name) === 0) {
+            return cookie.substring(name.length, cookie.length);
+        }
+    }
+    return null;
+}
+
+// Use this function when you need to save data to cookies or localStorage
+function saveToCookiesOrStorage(key, value) {
+    // Check user's consent preference
+    const consentChoice = localStorage.getItem('cookieConsent');
+    
+    if (consentChoice === 'accepted') {
+        // Save to both cookie and localStorage for redundancy
+        document.cookie = `${key}=${value}; max-age=31536000; path=/`;
+        localStorage.setItem(key, value);
+        return true;
+    } else {
+        // If consent denied or not yet given, use sessionStorage (temporary)
+        sessionStorage.setItem('temp' + key.charAt(0).toUpperCase() + key.slice(1), value);
+        return false;
+    }
+}
+
+// Read data with fallback strategy
+function getUserData(key) {
+    const consentChoice = localStorage.getItem('cookieConsent');
+    
+    if (consentChoice === 'accepted') {
+        // Try cookie first, then localStorage
+        const cookieValue = getCookieValue(key);
+        if (cookieValue !== null) {
+            return cookieValue;
+        }
+        return localStorage.getItem(key);
+    } else {
+        // Check temporary storage
+        return sessionStorage.getItem('temp' + key.charAt(0).toUpperCase() + key.slice(1));
+    }
+}
+
+// Example: Saving liked posts with better handling
+function saveLikedPost(postId) {
+    const consentChoice = localStorage.getItem('cookieConsent');
+    
+    // Get current liked posts
+    let likedPosts = [];
+    
+    if (consentChoice === 'accepted') {
+        // Get from permanent storage
+        const savedPosts = getUserData('likedPosts');
+        if (savedPosts) {
+            likedPosts = JSON.parse(savedPosts);
+        }
+        
+        // Add new post if not already liked
+        if (!likedPosts.includes(postId)) {
+            likedPosts.push(postId);
+        }
+        
+        // Save back to permanent storage
+        return saveToCookiesOrStorage('likedPosts', JSON.stringify(likedPosts));
+    } else if (consentChoice === 'denied') {
+        // If cookies denied, just acknowledge the like but don't save
+        console.log('Like acknowledged, but not saved due to cookie preferences');
+        return false;
+    } else {
+        // If consent not given yet, use temporary storage
+        const tempSavedPosts = sessionStorage.getItem('tempLikedPosts');
+        if (tempSavedPosts) {
+            likedPosts = JSON.parse(tempSavedPosts);
+        }
+        
+        // Add new post if not already liked
+        if (!likedPosts.includes(postId)) {
+            likedPosts.push(postId);
+        }
+        
+        // Save to temporary storage
+        sessionStorage.setItem('tempLikedPosts', JSON.stringify(likedPosts));
+        console.log('Post liked temporarily. Accept cookies to save permanently.');
+        return false;
+    }
+}
+
+// Check if a post is liked
+function isPostLiked(postId) {
+    const consentChoice = localStorage.getItem('cookieConsent');
+    
+    // If cookies are denied, always return false
+    if (consentChoice === 'denied') {
+        return false;
+    }
+    
+    // Get liked posts from appropriate storage
+    const savedPosts = getUserData('likedPosts');
+    
+    if (savedPosts) {
+        const likedPosts = JSON.parse(savedPosts);
+        return likedPosts.includes(postId);
+    }
+    
+    return false;
+}

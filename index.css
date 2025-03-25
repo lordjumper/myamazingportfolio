@@ -1636,3 +1636,62 @@ section {
 .back-home-button:hover {
     background-color: #558bff1c;
 }
+
+/* Cookie Consent Popup */
+.cookie-consent {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #1c1c1c;
+    border: 1px solid #2c2c2c;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    z-index: 1000;
+    max-width: 380px;
+    transform: translateY(150%);
+    transition: transform 0.4s ease-in-out;
+}
+
+.cookie-consent.show {
+    transform: translateY(0);
+}
+
+.cookie-content p {
+    margin-bottom: 15px;
+    color: #e0e0e0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.cookie-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.cookie-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.cookie-button.accept {
+    background-color: #558bff;
+    color: white;
+}
+
+.cookie-button.accept:hover {
+    background-color: #3a6bed;
+}
+
+.cookie-button.deny {
+    background-color: #333;
+    color: #e0e0e0;
+}
+
+.cookie-button.deny:hover {
+    background-color: #444;
+}
