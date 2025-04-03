@@ -448,7 +448,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Typing forward
                 charIndex++;
                 // Random typing speed to make it look more natural
-                const speed = Math.random() * 1000 + 50;
+                const speed = Math.random() * 100 + 50;
                 setTimeout(typeEffect, speed);
             } else if (!isDeleting && charIndex === text.length) {
                 // Reached the end of text, pause before starting to delete
