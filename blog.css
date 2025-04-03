@@ -1,4 +1,3 @@
-/* Blog specific styles */
 .blog-header {
     height: 500px;
     display: flex;
@@ -30,7 +29,6 @@
     padding: 0 20px 100px;
 }
 
-/* Featured post styling */
 .featured-post {
     background-color: #1e1e1e;
     border-radius: 8px;
@@ -41,7 +39,6 @@
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
-/* Blue light pulsing effect for project cards */
 @keyframes bluePulse {
     0% {
         box-shadow: 0 0 100px rgba(0, 132, 255, 0.3);
@@ -127,7 +124,6 @@
     font-family: 'Fira Code', monospace;
 }
 
-/* Blog posts grid */
 .posts-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -145,7 +141,6 @@
     flex-direction: column;
 }
 
-/* Blue light pulsing effect for project cards */
 @keyframes bluePulseCard {
     0% {
         box-shadow: 0 0 20px rgba(0, 132, 255, 0.3);
@@ -174,7 +169,6 @@
     flex-grow: 1;
 }
 
-/* For mobile responsiveness */
 @media (max-width: 768px) {
     .featured-post {
         padding: 25px;
@@ -207,7 +201,6 @@
     }
 }
 
-/* Blog post template styles */
 .blog-post-container {
     max-width: 800px;
     margin: 0 auto;
@@ -349,7 +342,6 @@
     }
 }
 
-/* Blog Search */
 .blog-search-wrapper {
     margin-bottom: 1.5rem;
     padding: 1rem;
@@ -360,7 +352,6 @@
     margin-bottom: 1rem;
   }
   
- /* Search container modifications */
 .search-container form {
   display: flex;
   width: 100%;
@@ -370,7 +361,7 @@
 
 .search-container input {
     width: 100%;
-    padding: 8px 10px 8px 35px; /* Add left padding for the icon */
+    padding: 8px 10px 8px 35px;
     font-size: 14px;
     background-color: #1e1e1e00;
     border: none;
@@ -378,13 +369,12 @@
     color: #fff;
     transition: all 0.2s ease;
     font-family: 'Fira Code', monospace;
-    outline: none; /* Remove the default outline */
+    outline: none;
   }
   
-  /* You might also want to add a custom focus style */
-  .search-container input:focus {
-    border-bottom: 1px solid #558bff; /* Change border color on focus */
-  }
+.search-container input:focus {
+    border-bottom: 1px solid #558bff;
+}
 
 .search-container .search-button {
   background-color: transparent;
@@ -493,13 +483,11 @@
     background-color: rgba(85, 139, 255, 0.2);
   }
   
-  /* Single post search */
   .single-post-search {
     max-width: 450px;
     margin: 0 auto 1.25rem;
   }
   
-  /* Mobile responsiveness */
   @media (max-width: 768px) {
     .tag-list {
       gap: 0.25rem;
@@ -516,15 +504,10 @@
     }
   }
 
-  /* Hide search bar on single post pages */
 .single-post-search {
     display: none;
-  }
+}
 
-
-  /* Add these styles to your blog.css file */
-
-/* Post reactions on single post page */
 .post-reactions {
     margin: 3rem 0 2rem;
     text-align: center;
@@ -583,7 +566,6 @@
     font-weight: 500;
   }
   
-  /* Reaction indicators on post cards */
   .card-reaction-indicator {
     position: absolute;
     bottom: 10px;
@@ -615,9 +597,8 @@
     color: rgba(255, 255, 255, 0.233);
   }
   
-  /* Make post cards position relative to support absolute positioning */
   .post-card, 
   .featured-post {
     position: relative;
-    padding-bottom: 2.5rem; /* Add space for reaction indicators */
+    padding-bottom: 2.5rem;
   }
