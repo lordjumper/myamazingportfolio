@@ -448,7 +448,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Typing forward
                 charIndex++;
                 // Random typing speed to make it look more natural
-                const speed = Math.random() * 100 + 50;
+                const speed = Math.random() * 100 + 100;
                 setTimeout(typeEffect, speed);
             } else if (!isDeleting && charIndex === text.length) {
                 // Reached the end of text, pause before starting to delete
@@ -465,8 +465,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 isDeleting = false;
                 setTimeout(typeEffect, 500); // Pause before starting again
             } else if (pauseEnd) {
-                // After pause, decide if we want to delete and retype
-                // Let's have a 25% chance to delete and retype for variety
                 if (Math.random() < 0.25) {
                     isDeleting = true;
                     pauseEnd = false;
