@@ -29,6 +29,19 @@
                 "https://acxt642gke.ufs.sh/f/Zb7b7YjNj6Mvh47xKdbVncs9D37F0XwSajNgdGfHJ8uxbMp2"
             ],
             "featured": true
+        },
+        {
+            "id": "fulcrum-website",
+            "title": "Fulcrum Website",
+            "shortDescription": "A minimalistic website & blog for my indie game studio.",
+            "description": "A clean website I made for my indie game studio. It is a simple website that displays information about the studio and its games. It is made in vanilla html, css, and js.",
+            "demoLink": "https://lordjumper.github.io/fulcrum_site/",
+            "githubLink": "#",
+            "technologies": ["HTML", "CSS", "JavaScript"],
+            "images": [
+                
+            ],
+            "featured": true
         }
     ],
     "display": {
