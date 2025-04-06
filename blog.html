@@ -146,8 +146,8 @@
             <div class="mobile-menu-logo">Mina Zaky</div>
             <div class="mobile-nav-links">
                 <a href="/index.html#home">home</a>
-                <a href="/404.html">resume</a>
                 <a href="blog.html">blog</a>
+                <a href="/404.html">resume</a>
             </div>
             <div class="mobile-social-icons">
                 <a href="https://github.com/lordjumper" target="_blank"><i class="fa-brands fa-github"></i></a>
@@ -215,13 +215,11 @@
             window.addEventListener('scroll', function() {
                 let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
                 
-                // Don't hide navbar when at the top of the page
                 if (currentScroll <= 50) {
                     navbar.classList.remove('hidden');
                     return;
                 }
                 
-                // Don't hide navbar when user is hovering over it or the hover area
                 if (isHovering) {
                     return;
                 }
@@ -262,7 +260,7 @@
                 }
             });
             
-            // Make sure the navbar stays visible when hovering over any nav element
+            // Make the navbar stays visible when hovering over any nav element
             navLinks.forEach(link => {
                 link.addEventListener('mouseenter', function() {
                     isHovering = true;
