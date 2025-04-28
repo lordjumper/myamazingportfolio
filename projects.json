@@ -36,7 +36,6 @@
             "shortDescription": "A minimalistic website & blog for my indie game studio.",
             "description": "A clean website I made for my indie game studio. It is a simple website that displays information about the studio and its games. It is made in vanilla html, css, and js.",
             "demoLink": "https://lordjumper.github.io/fulcrum_site/",
-            "githubLink": "#",
             "technologies": ["HTML", "CSS", "JavaScript"],
             "images": [
                 
@@ -48,7 +47,6 @@
             "title": "Flourish Bot",
             "shortDescription": "A fun private discord discord bot with features like fishing, blackjack, shop and more.",
             "description": "A fun privates discord bot with features like fishing, blackjack, shop, and leaderboard status. I plan to continue to add more fleshed out features to the bot in my freetime. Since I dont plan to share this bot publicly and pay for databases and such, it currently uses a json database method where everything is stored locally in json files and dynamically updated as commands are executed.",
-            "demoLink": "#",
             "githubLink": "https://github.com/lordjumper/FlourishBot",
             "technologies": ["Discord.Net", "Json", "C#"],
             "images": [
