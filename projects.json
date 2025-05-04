@@ -45,7 +45,7 @@
         {
             "id": "Discord-Bot",
             "title": "Flourish Bot",
-            "shortDescription": "A fun private discord discord bot with features like fishing, blackjack, shop and more.",
+            "shortDescription": "A fun discord bot with features like fishing, blackjack, shop and more.",
             "description": "A fun privates discord bot with features like fishing, blackjack, shop, and leaderboard status. I plan to continue to add more fleshed out features to the bot in my freetime. Since I dont plan to share this bot publicly and pay for databases and such, it currently uses a json database method where everything is stored locally in json files and dynamically updated as commands are executed.",
             "githubLink": "https://github.com/lordjumper/FlourishBot",
             "technologies": ["Discord.js", "Typescript", "Json"],
