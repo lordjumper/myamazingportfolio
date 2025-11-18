@@ -170,18 +170,6 @@ const Projects = () => {
         link: "#",
         github: "#",
       },
-      {
-        id: 5,
-        title: "Analytics Dashboard",
-        description:
-          "Real-time analytics dashboard with interactive charts and data visualization.",
-        category: "frontend",
-        technologies: ["React", "D3.js", "TypeScript", "WebSocket"],
-        icon: "mdi:chart-line",
-        color: "#0088ff",
-        link: "#",
-        github: "#",
-      },
     ],
     [],
   );
