@@ -3,8 +3,8 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 
 export const metadata = {
-  title: "Blog | Developer Portfolio",
-  description: "Read my latest articles and thoughts on web development",
+  title: "Blog | Mina Zaky",
+  description: "Read my latest articles and thoughts",
 };
 
 export default function BlogPage() {
@@ -34,8 +34,7 @@ export default function BlogPage() {
             </h1>
             <div className="w-20 h-1 bg-[#00ff88] mx-auto mb-6" />
             <p className="text-lg text-white/60 max-w-2xl mx-auto">
-              Thoughts, tutorials, and insights on web development, design, and
-              technology
+              Banter about things and ideas.
             </p>
           </div>
 
@@ -47,7 +46,9 @@ export default function BlogPage() {
                   icon="mdi:file-document-outline"
                   className="text-6xl text-white/20 mx-auto mb-4"
                 />
-                <p className="text-white/60">No blog posts yet. Check back soon!</p>
+                <p className="text-white/60">
+                  No blog posts yet. Check back soon!
+                </p>
               </div>
             ) : (
               allPosts.map((post) => (

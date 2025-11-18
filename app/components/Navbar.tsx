@@ -60,7 +60,6 @@ const Navbar = () => {
   ];
 
   const handleNavClick = useCallback((e: React.MouseEvent, href: string) => {
-    
     if (href === "/blog") {
       return;
     }
