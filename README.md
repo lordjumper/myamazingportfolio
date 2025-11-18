@@ -1,3 +1,0 @@
-# myamazingportfolio
- 
-minazaky.com
